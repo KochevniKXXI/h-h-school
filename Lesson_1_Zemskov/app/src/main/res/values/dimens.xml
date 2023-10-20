@@ -1,0 +1,4 @@
+<resources>
+    <dimen name="margin_horizontal">16dp</dimen>
+    <dimen name="padding_vertical">8dp</dimen>
+</resources>

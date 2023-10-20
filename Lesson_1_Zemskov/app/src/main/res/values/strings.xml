@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Lesson_1_Zemskov</string>
+    <string name="button_navigate_to_student_journal_text">Журнал учеников</string>
+    <string name="button_navigate_to_student_info_text">Информация по ученикам</string>
+    <string name="edit_text_student_name_hint">Имена учеников</string>
+    <string name="button_save_text">Сохранить</string>
+    <string name="button_show_list_text">Отобразить список</string>
+    <string name="empty_students_list">Список учеников пуст</string>
+    <string name="edit_text_student_info_hint">Информация по ученику</string>
+    <string name="button_show_info_text">Отобразить информацию</string>
+    <string name="text_input_layout_student_info_placeholder">Иван Иванов 1А 2000</string>
+    <string name="text_input_layout_student_name_placeholder">Имя1[ Имя2]…[ ИмяN]</string>
+    <string name="allowed_characters">абвгдеёжзийклмнопрстуфхцчшщъыьэюя АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+</resources>
