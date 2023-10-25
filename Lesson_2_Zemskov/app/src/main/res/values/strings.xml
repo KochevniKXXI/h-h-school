@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name" translatable="false">Lesson_2_Zemskov</string>
+    <string name="button_navigate_to_exercise_1_text">Exercise 1</string>
+    <string name="button_navigate_to_exercise_2_text">Exercise 2</string>
+    <string name="poem">Sorry, there is nothing</string>
+    <string name="button_text">Pain and suffering</string>
+    <string name="button_custom_states_text">Button 1</string>
+</resources>

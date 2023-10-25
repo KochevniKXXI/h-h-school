@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="SignatureImage">
+        <item name="android:src">@drawable/saint_andrew_s_cross_black</item>
+    </style>
+
+    <style name="PoemText">
+        <item name="android:textColor">@color/red</item>
+    </style>
+</resources>
