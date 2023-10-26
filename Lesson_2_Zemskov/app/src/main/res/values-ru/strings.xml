@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="button_navigate_to_exercise_1_text">Задание 1</string>
+    <string name="button_navigate_to_exercise_2_text">Задание 2</string>
+    <string name="poem">Храни меня, мой талисман,\nХрани меня во дни гоненья,\nВо дни раскаянья, волненья:\nТы в день печали был мне дан.</string>
+    <string name="button_text">Боль и страдание</string>
+    <string name="button_custom_states_text">Кнопка 1</string>
+</resources>

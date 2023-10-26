@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="SignatureImage">
+        <item name="android:src">@drawable/pushkin_signature</item>
+    </style>
+</resources>
