@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="screen_margin_horizontal">16dp</dimen>
+    <dimen name="header_margin_bottom">24dp</dimen>
+    <dimen name="header_padding">16dp</dimen>
+    <dimen name="header_image_size">72dp</dimen>
+    <dimen name="header_text_view_margin_start">18dp</dimen>
+    <dimen name="header_text_view_margin_top">16dp</dimen>
+    <dimen name="list_item_padding_top">16dp</dimen>
+    <dimen name="list_item_padding_bottom">8dp</dimen>
+    <dimen name="list_item_spacer_after_overline">2dp</dimen>
+    <dimen name="list_item_image_margin_vertical">24dp</dimen>
+    <dimen name="list_item_spacer_after_exit_account_icon">32dp</dimen>
+</resources>

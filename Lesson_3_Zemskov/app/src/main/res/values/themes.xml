@@ -1,0 +1,17 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Lesson_3_Zemskov" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/amber_400</item>
+        <item name="colorPrimaryVariant">@color/orange_700</item>
+        <item name="colorOnPrimary">@color/gray_800</item>
+        <item name="android:textColorPrimary">@color/gray_800</item>
+
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+
+        <item name="appBarLayoutStyle">@style/Widget.MaterialComponents.AppBarLayout.Primary</item>
+        <item name="elevationOverlayEnabled">false</item>
+    </style>
+
+    <style name="Theme.Lesson_3_Zemskov" parent="Base.Theme.Lesson_3_Zemskov" />
+</resources>
