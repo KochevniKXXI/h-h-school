@@ -44,14 +44,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/header_text_view_margin_start"
                 android:layout_marginTop="@dimen/header_text_view_margin_top"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/imageViewProfile"
-                app:layout_constraintTop_toTopOf="@+id/imageViewProfile" />
+                app:layout_constraintTop_toTopOf="@+id/imageViewProfile"
+                app:layout_constraintVertical_bias="0.0" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
@@ -83,18 +88,9 @@
                 android:id="@+id/listItemRegion"
                 layout="@layout/list_item_on_constraint_layout" />
 
-            <FrameLayout
+            <include
                 android:id="@+id/buttonExitAccount"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true">
-
-                <include
-                    android:id="@+id/listItemExitAccount"
-                    layout="@layout/list_item_on_constraint_layout" />
-            </FrameLayout>
+                layout="@layout/button_exit_account" />
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

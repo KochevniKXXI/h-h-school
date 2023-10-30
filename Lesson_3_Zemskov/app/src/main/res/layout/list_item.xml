@@ -4,15 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ViewStub
-        android:id="@+id/stubExitAccountIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inflatedId="@+id/subExitAccountIcon"
-        android:layout="@layout/list_item_icon_leading"
-        android:layout_marginHorizontal="@dimen/screen_margin_horizontal"
-        android:layout_marginVertical="@dimen/list_item_image_margin_vertical"/>
-
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -25,7 +16,7 @@
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/textViewOverline"
             style="@style/TextAppearance.Material3.BodyMedium"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/list_item_padding_bottom"
             android:layout_marginBottom="@dimen/list_item_spacer_after_overline"
@@ -35,7 +26,7 @@
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/textViewHeadline"
             style="@style/TextAppearance.Material3.BodyLarge"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="Headline" />
     </LinearLayout>

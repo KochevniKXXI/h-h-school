@@ -9,4 +9,10 @@
     <string name="exit_account_text">Выйти из аккаунта</string>
     <string name="menu_item_edit_text">Редактировать профиль</string>
     <string name="list_item_icon_edit_text">Редактировать регион</string>
+
+    <string name="label_name">Имя</string>
+    <string name="label_surname">Фамилия</string>
+    <string name="label_email">E-mail</string>
+    <string name="label_login">Логин</string>
+    <string name="label_region">Ваш регион</string>
 </resources>
