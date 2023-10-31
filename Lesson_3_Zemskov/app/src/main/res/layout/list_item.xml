@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginHorizontal="@dimen/screen_margin_horizontal"
+        android:layout_marginVertical="@dimen/list_item_padding_bottom"
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewOverline"
+            style="@style/TextAppearance.Material3.BodyMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/list_item_padding_bottom"
+            android:layout_marginBottom="@dimen/list_item_spacer_after_overline"
+            android:textColor="@color/gray_500"
+            tools:text="Overline" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewHeadline"
+            style="@style/TextAppearance.Material3.BodyLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Headline" />
+    </LinearLayout>
+
+    <ViewStub
+        android:id="@+id/stubEditIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inflatedId="@+id/subEditIcon"
+        android:layout="@layout/list_item_icon_trailing"
+        android:layout_marginHorizontal="@dimen/screen_margin_horizontal"
+        android:layout_marginVertical="@dimen/list_item_image_margin_vertical"/>
+</LinearLayout>
