@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:contentPadding="@dimen/card_view_content_padding"
-    app:cardElevation="@dimen/card_view_elevation">
+    app:cardElevation="@dimen/card_view_elevation"
+    app:contentPadding="@dimen/card_view_content_padding">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,20 +22,20 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/textViewHeadline"
-            style="@style/TextAppearance.Material3.TitleMedium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/card_view_text_margin"
             android:layout_marginBottom="@dimen/card_view_text_margin"
+            android:textAppearance="?textAppearanceTitleMedium"
             tools:text="Headline" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/textViewSupportingText"
-            style="@style/TextAppearance.Material3.LabelMedium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/card_view_text_margin"
             android:layout_marginBottom="@dimen/card_view_text_margin"
+            android:textAppearance="?textAppearanceLabelMedium"
             android:textColor="@color/grey_600"
             tools:text="Supporting text" />
     </LinearLayout>

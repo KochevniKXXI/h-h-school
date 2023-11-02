@@ -36,11 +36,7 @@ class ItemsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is GridInfoItemViewHolder -> holder.bind(
-                items[position] as InfoItem.DetailInfoItem,
-                position
-            )
-
+            is GridInfoItemViewHolder -> holder.bind(items[position] as InfoItem.DetailInfoItem)
             is ListInfoItemViewHolder -> holder.bind(items[position])
         }
     }

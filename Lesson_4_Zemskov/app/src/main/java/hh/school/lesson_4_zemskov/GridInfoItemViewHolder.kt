@@ -10,16 +10,15 @@ class GridInfoItemViewHolder(
 ) : RecyclerView.ViewHolder(
     binding.root
 ) {
-    fun bind(detailInfoItem: InfoItem.DetailInfoItem, position: Int) = with(binding) {
+    fun bind(detailInfoItem: InfoItem.DetailInfoItem) = with(binding) {
         root.setOnClickListener {
             onItemClick(detailInfoItem, it)
         }
         topIcon.setImageResource(detailInfoItem.iconResourceId)
         textViewHeadline.text = detailInfoItem.title
+
+        val supportingTextColorResId = if (bindingAdapterPosition <= 1) R.color.red_500 else R.color.grey_800
         textViewSupportingText.text = detailInfoItem.description
-        textViewSupportingText.setTextColor(
-            if (position <= 1) binding.root.context.resources.getColor(R.color.red_500)
-            else binding.root.context.resources.getColor(R.color.grey_600)
-        )
+        textViewSupportingText.setTextColor(binding.root.context.resources.getColor(supportingTextColorResId))
     }
 }
