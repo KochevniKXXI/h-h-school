@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Lesson_4_Zemskov</string>
+    <string name="menu_actions_info_title">Информация</string>
+    <string name="manu_actions_in_out_title">Вход/выход</string>
+    <string name="toolbar_title">Услуги сантехника</string>
+    <string name="button_positive_text">OK</string>
+</resources>

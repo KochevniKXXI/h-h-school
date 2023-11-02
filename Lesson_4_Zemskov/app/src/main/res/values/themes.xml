@@ -1,0 +1,12 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Lesson_4_Zemskov" parent="Theme.Material3.Light.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:colorBackground">@color/grey_100</item>
+        <item name="android:textColorPrimary">@color/grey_800</item>
+        <item name="materialCardViewStyle">@style/Base.CardView</item>
+    </style>
+
+    <style name="Theme.Lesson_4_Zemskov" parent="Base.Theme.Lesson_4_Zemskov" />
+</resources>

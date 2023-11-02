@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="card_view_content_padding">8dp</dimen>
+    <dimen name="card_view_text_margin">6dp</dimen>
+    <dimen name="recycler_view_padding">8dp</dimen>
+    <dimen name="card_view_elevation">8dp</dimen>
+    <dimen name="item_grid_spacing_after_image">16dp</dimen>
+    <dimen name="item_list_spacing_after_image">8dp</dimen>
+    <dimen name="thickness_divider">8dp</dimen>
+    <dimen name="recycler_view_space_evenly">8dp</dimen>
+</resources>
