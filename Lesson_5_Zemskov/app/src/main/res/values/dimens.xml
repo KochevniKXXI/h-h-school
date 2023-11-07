@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="padding_horizontal">16dp</dimen>
+    <dimen name="app_bar_expanded_height">236dp</dimen>
+    <dimen name="logo_padding_bottom">16dp</dimen>
+    <dimen name="app_bar_text_padding_bottom">45dp</dimen>
+    <dimen name="app_bar_text_padding_top">66dp</dimen>
+    <dimen name="nested_scroll_content_margin_top">8dp</dimen>
+    <dimen name="offer_service_margin">8dp</dimen>
+    <dimen name="offer_service_padding_horizontal">16dp</dimen>
+    <dimen name="offer_service_padding_vertical">8dp</dimen>
+    <dimen name="item_service_image_side">92dp</dimen>
+    <dimen name="recycler_view_margin_top">4dp</dimen>
+    <dimen name="item_service_padding_horizontal">8dp</dimen>
+    <dimen name="button_more_side">24dp</dimen>
+    <dimen name="item_text_margin_horizontal">16dp</dimen>
+    <dimen name="item_promotion_margin_top">2dp</dimen>
+    <dimen name="item_address_margin_top">8dp</dimen>
+</resources>

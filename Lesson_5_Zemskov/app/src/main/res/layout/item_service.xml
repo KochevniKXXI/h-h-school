@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.Material3.CardView.Filled"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:backgroundTint="?attr/colorSurface"
+    app:cardCornerRadius="0dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/item_service_padding_horizontal"
+        tools:layout_marginBottom="4dp">
+
+        <ImageView
+            android:id="@+id/imageViewPoster"
+            android:layout_width="@dimen/item_service_image_side"
+            android:layout_height="@dimen/item_service_image_side"
+            android:background="@color/black_blue_transparent_40"
+            android:importantForAccessibility="no"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/item_text_margin_horizontal"
+            android:layout_marginEnd="@dimen/item_text_margin_horizontal"
+            android:textAppearance="?textAppearanceBodyMedium"
+            android:textColor="@color/grey_600"
+            app:layout_constraintEnd_toStartOf="@+id/imageViewMore"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/imageViewPoster"
+            app:layout_constraintTop_toTopOf="@+id/imageViewPoster"
+            tools:text="Title" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewPromotion"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/item_promotion_margin_top"
+            android:layout_marginEnd="16dp"
+            android:textAppearance="?textAppearanceTitleSmall"
+            app:layout_constraintEnd_toStartOf="@+id/imageViewMore"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/textViewTitle"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTitle"
+            tools:text="Promotion" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewAddress"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/item_address_margin_top"
+            android:layout_marginEnd="@dimen/item_service_padding_horizontal"
+            android:textAppearance="?textAppearanceBodySmall"
+            android:textColor="@color/grey_600"
+            app:layout_constraintEnd_toStartOf="@+id/imageViewMore"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/textViewPromotion"
+            app:layout_constraintTop_toBottomOf="@+id/textViewPromotion"
+            tools:text="Address" />
+
+        <ImageView
+            android:id="@+id/imageViewMore"
+            style="@style/Widget.Material3.Search.Toolbar.Button.Navigation"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:importantForAccessibility="no"
+            android:src="@drawable/baseline_more_vert_24"
+            android:minWidth="@dimen/button_more_side"
+            android:minHeight="@dimen/button_more_side"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

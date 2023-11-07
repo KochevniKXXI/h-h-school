@@ -1,0 +1,8 @@
+<resources>
+    <style name="Base.Theme.Lesson_5_Zemskov" parent="Theme.Material3.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/black_transparent_53</item>
+        <item name="android:textColorPrimary">@color/grey_800</item>
+    </style>
+
+    <style name="Theme.Lesson_5_Zemskov" parent="Base.Theme.Lesson_5_Zemskov" />
+</resources>
