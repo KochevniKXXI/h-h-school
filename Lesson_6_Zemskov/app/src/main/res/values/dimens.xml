@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="services_divider_size">8dp</dimen>
+    <dimen name="picture_height">150dp</dimen>
+    <dimen name="caption_margi_top">16dp</dimen>
+    <dimen name="button_corner_radius">2dp</dimen>
+    <dimen name="fragment_three_padding_top">48dp</dimen>
+    <dimen name="card_service_elevation">8dp</dimen>
+    <dimen name="item_service_space_evenly">8dp</dimen>
+    <dimen name="image_service_margin_start">20dp</dimen>
+    <dimen name="image_service_margin_top">24dp</dimen>
+    <dimen name="headline_horizontal_margin">16dp</dimen>
+    <dimen name="headline_margin_top">20dp</dimen>
+    <dimen name="supporting_text_margin_bottom">16dp</dimen>
+    <dimen name="supporting_text_margin_top">1dp</dimen>
+    <dimen name="supporting_text_drawable_padding">4dp</dimen>
+    <dimen name="text_input_margin_start">16dp</dimen>
+    <dimen name="text_input_margin_top">20dp</dimen>
+    <dimen name="text_input_margin_end_gone">20dp</dimen>
+    <dimen name="text_input_second_margin_start">12dp</dimen>
+    <dimen name="fab_margin_end">16dp</dimen>
+    <dimen name="helper_text_margin_top">4dp</dimen>
+    <dimen name="helper_text_margin_bottom">16dp</dimen>
+    <dimen name="helper_text_drawable_padding">8dp</dimen>
+</resources>

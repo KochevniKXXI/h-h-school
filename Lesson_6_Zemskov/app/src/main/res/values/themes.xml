@@ -1,0 +1,20 @@
+<resources>
+    <style name="Base.Theme.Lesson_6_Zemskov" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorSurface">@color/white</item>
+        <item name="colorPrimary">@color/cyan_400</item>
+        <item name="colorOnSurface">@color/grey_600</item>
+        <item name="android:colorBackground">@color/grey_100</item>
+        <item name="colorOnSurfaceVariant">@color/grey_400</item>
+        <item name="colorOnSecondaryContainer">@color/cyan_400</item>
+        <item name="colorPrimaryContainer">@color/cyan_400</item>
+        <item name="colorOnPrimaryContainer">@color/white</item>
+        <item name="android:statusBarColor">@color/black_transparent_53</item>
+        <item name="android:textColorPrimary">@color/grey_blue_800</item>
+        <item name="colorError">@color/red_500</item>
+        <item name="materialCardViewStyle">@style/Widget.Material3.CardView.Elevated</item>
+        <item name="elevationOverlayEnabled">false</item>
+        <item name="textInputFilledStyle">@style/Widget.MaterialComponents.TextInputLayout.FilledBox</item>
+    </style>
+
+    <style name="Theme.Lesson_6_Zemskov" parent="Base.Theme.Lesson_6_Zemskov" />
+</resources>

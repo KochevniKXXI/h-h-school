@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardElevation="@dimen/card_service_elevation"
+    app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.ExtraExtraSmall"
+    tools:layout_marginHorizontal="@dimen/item_service_space_evenly"
+    tools:layout_marginTop="@dimen/item_service_space_evenly">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imageViewIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/image_service_margin_start"
+            android:layout_marginTop="@dimen/image_service_margin_top"
+            android:importantForAccessibility="no"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_water_cold" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/headline_horizontal_margin"
+            android:layout_marginTop="@dimen/headline_margin_top"
+            android:layout_marginEnd="@dimen/headline_horizontal_margin"
+            android:textAppearance="?textAppearanceTitleMedium"
+            app:layout_constraintEnd_toStartOf="@+id/imageViewInfo"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/imageViewIcon"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Headline" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewSerialNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/supporting_text_margin_top"
+            android:layout_marginEnd="@dimen/supporting_text_margin_bottom"
+            android:drawableStart="@drawable/ic_serial_number"
+            android:drawablePadding="@dimen/supporting_text_drawable_padding"
+            android:textAppearance="?textAppearanceBodyMedium"
+            app:layout_constraintEnd_toStartOf="@+id/imageViewInfo"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/textViewName"
+            app:layout_constraintTop_toBottomOf="@+id/textViewName"
+            tools:text="Supporting text" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/imageViewMore"
+            style="?materialIconButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/image_view_more_content_description"
+            app:iconTint="@color/grey_400"
+            app:icon="@drawable/baseline_more_vert_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/grey_300" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/imageViewInfo"
+            style="?materialIconButtonStyle"
+            app:iconTint="@color/grey_400"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/image_view_info_content_description"
+            app:icon="@drawable/baseline_info_24"
+            app:layout_constraintEnd_toStartOf="@+id/imageViewMore"
+            app:layout_constraintTop_toTopOf="@+id/imageViewMore"
+            app:tint="@color/grey_300" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutFirstMeter"
+            style="?attr/textInputFilledStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/text_input_margin_start"
+            android:layout_marginTop="@dimen/text_input_margin_top"
+            android:hint="@string/item_service_one_edit_text_hint"
+            app:boxBackgroundColor="@color/white"
+            app:layout_constraintEnd_toStartOf="@+id/textInputLayoutSecondMeter"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewSerialNumber"
+            app:layout_goneMarginEnd="@dimen/text_input_margin_end_gone">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextFirstMeter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutSecondMeter"
+            style="?attr/textInputFilledStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/text_input_second_margin_start"
+            android:hint="@string/item_service_second_edit_text_hint"
+            android:visibility="gone"
+            app:boxBackgroundColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/textInputLayoutFirstMeter"
+            app:layout_constraintEnd_toStartOf="@+id/textInputLayoutThirdMeter"
+            app:layout_constraintStart_toEndOf="@+id/textInputLayoutFirstMeter"
+            app:layout_constraintTop_toTopOf="@+id/textInputLayoutFirstMeter">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextSecondMeter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutThirdMeter"
+            style="?attr/textInputFilledStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/text_input_second_margin_start"
+            android:layout_marginEnd="@dimen/text_input_second_margin_start"
+            android:hint="@string/item_service_third_edit_text_hint"
+            android:visibility="gone"
+            app:boxBackgroundColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/textInputLayoutSecondMeter"
+            app:layout_constraintEnd_toStartOf="@+id/buttonSend"
+            app:layout_constraintStart_toEndOf="@+id/textInputLayoutSecondMeter"
+            app:layout_constraintTop_toTopOf="@+id/textInputLayoutSecondMeter">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextThirdMeter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/buttonSend"
+            style="?attr/floatingActionButtonSmallStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/fab_margin_end"
+            android:contentDescription="@string/button_send_content_description"
+            android:src="@drawable/ic_send"
+            app:elevation="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textInputLayoutFirstMeter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textInputLayoutThirdMeter"
+            app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.ExtraExtraSmall" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewAdditionalInfo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/helper_text_margin_top"
+            android:layout_marginBottom="@dimen/helper_text_margin_bottom"
+            android:drawablePadding="@dimen/helper_text_drawable_padding"
+            android:textAppearance="?textAppearanceBodySmall"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/buttonSend"
+            app:layout_constraintStart_toStartOf="@+id/textInputLayoutFirstMeter"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutFirstMeter"
+            tools:drawableStart="@drawable/ic_alert"
+            tools:text="@string/alert_message" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

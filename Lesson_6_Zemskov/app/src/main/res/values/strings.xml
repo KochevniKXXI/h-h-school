@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Lesson_6_Zemskov</string>
+    <string name="top_level_navigation_menu_item_one_title">Item one</string>
+    <string name="top_level_navigation_menu_item_two_title">Item two</string>
+    <string name="top_level_navigation_menu_item_three_title">Item three</string>
+    <string name="actions_item_search_title">Поиск</string>
+    <string name="group_one_item_one_title">Пункт 1</string>
+    <string name="group_one_item_two_title">Пункт 2</string>
+    <string name="group_two_item_one_title">Пункт 3</string>
+    <string name="group_two_item_two_title">Пункт 4</string>
+    <string name="item_lamp_title">Фонарик</string>
+    <string name="item_service_one_edit_text_hint">Новые показания</string>
+    <string name="alert_message">Необходимо подать показания до %s</string>
+    <string name="helper_message">Показания сданы &lt;b>%s&lt;/b> и будут учтены при следующем расчете &lt;b>%s&lt;/b></string>
+    <string name="item_service_first_edit_text_hint">День</string>
+    <string name="item_service_second_edit_text_hint">Ночь</string>
+    <string name="item_service_third_edit_text_hint">Пик</string>
+    <string name="button_show_banner_text">Показать баннер</string>
+    <string name="button_show_banner_text_collapse">Свернуть баннер</string>
+    <string name="button_send_content_description">Отправить</string>
+    <string name="image_view_info_content_description">Информация</string>
+    <string name="image_view_more_content_description">Опции</string>
+</resources>

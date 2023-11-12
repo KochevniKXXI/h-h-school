@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/itemSearch"
+        android:icon="@drawable/baseline_search_24"
+        android:title="@string/actions_item_search_title"
+        app:showAsAction="ifRoom" />
+    <group android:id="@+id/groupOne">
+        <item
+            android:id="@+id/groupOneItemOne"
+            android:title="@string/group_one_item_one_title"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/groupOneItemTwo"
+            android:title="@string/group_one_item_two_title"
+            app:showAsAction="never" />
+    </group>
+    <group android:id="@+id/groupTwo">
+        <item
+            android:id="@+id/groupTwoItemOne"
+            android:title="@string/group_two_item_one_title"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/groupTwoItemTwo"
+            android:title="@string/group_two_item_two_title"
+            app:showAsAction="never" />
+    </group>
+</menu>
