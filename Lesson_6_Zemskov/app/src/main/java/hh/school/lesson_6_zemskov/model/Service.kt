@@ -5,7 +5,8 @@ import androidx.annotation.DrawableRes
 sealed interface Service {
     val name: String
     val serialNumber: String
-    @get:DrawableRes val iconResId: Int
+    @get:DrawableRes
+    val iconResId: Int
     val nextCalculationDate: String
     val metersDataDate: String
 

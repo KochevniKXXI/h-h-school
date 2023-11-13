@@ -1,7 +1,9 @@
 package hh.school.lesson_6_zemskov.adapters
 
 import android.text.Html
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import hh.school.lesson_6_zemskov.R
@@ -9,8 +11,11 @@ import hh.school.lesson_6_zemskov.databinding.ItemServiceBinding
 import hh.school.lesson_6_zemskov.model.Service
 
 class ServiceViewHolder(
-    private val binding: ItemServiceBinding
-) : RecyclerView.ViewHolder(binding.root) {
+    parent: ViewGroup
+) : RecyclerView.ViewHolder(
+    ItemServiceBinding.inflate(LayoutInflater.from(parent.context), parent, false).root
+) {
+    private val binding = ItemServiceBinding.bind(itemView)
     fun bind(serviceItem: Service) = with(binding) {
         imageViewIcon.setImageResource(serviceItem.iconResId)
         textViewName.text = serviceItem.name
@@ -35,12 +40,15 @@ class ServiceViewHolder(
 
         when (serviceItem) {
             is Service.SingleMeterService -> {
-                textInputLayoutFirstMeter.hint = binding.root.resources.getString(R.string.item_service_one_edit_text_hint)
+                textInputLayoutFirstMeter.hint =
+                    binding.root.resources.getString(R.string.item_service_one_edit_text_hint)
                 textInputLayoutSecondMeter.visibility = View.GONE
                 textInputLayoutThirdMeter.visibility = View.GONE
             }
+
             is Service.DayNightMaxService -> {
-                textInputLayoutFirstMeter.hint = binding.root.resources.getString(R.string.item_service_first_edit_text_hint)
+                textInputLayoutFirstMeter.hint =
+                    binding.root.resources.getString(R.string.item_service_first_edit_text_hint)
                 textInputLayoutSecondMeter.visibility = View.VISIBLE
                 textInputLayoutThirdMeter.visibility = View.VISIBLE
             }

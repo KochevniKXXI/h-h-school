@@ -8,7 +8,6 @@ import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
-import com.google.android.material.button.MaterialButton
 import hh.school.lesson_6_zemskov.databinding.FragmentThreeItemBinding
 
 class ThreeItemFragment : Fragment() {
@@ -25,7 +24,7 @@ class ThreeItemFragment : Fragment() {
         binding.buttonShowBanner.setOnClickListener {
             childFragmentManager.commit {
                 setReorderingAllowed(true)
-                (it as MaterialButton).text = if (binding.fragmentContainerViewPictures.isEmpty()) {
+                binding.buttonShowBanner.text = if (binding.fragmentContainerViewPictures.isEmpty()) {
                     add<ViewPagerFragment>(R.id.fragmentContainerViewPictures)
                     resources.getString(R.string.button_show_banner_text_collapse)
                 } else {

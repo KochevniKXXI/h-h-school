@@ -27,17 +27,8 @@ object DataSource {
     )
 
     val listPictures = listOf(
-        Pair(
-            "https://img.freepik.com/free-photo/flat-lay-of-volleyball-on-the-beach-sand_23-2148662653.jpg",
-            "Мяч"
-        ),
-        Pair(
-            "https://img.freepik.com/free-photo/volleyball-net-at-the-sandy-beach-on-a-bright-sunny-day_181624-5357.jpg",
-            "Площадки"
-        ),
-        Pair(
-            "https://img.freepik.com/free-photo/back-view-of-woman-signaling-teammate-with-hands-while-playing-volleyball_23-2148662648.jpg",
-            "Партия"
-        )
+        "https://img.freepik.com/free-photo/flat-lay-of-volleyball-on-the-beach-sand_23-2148662653.jpg" to "Мяч",
+        "https://img.freepik.com/free-photo/volleyball-net-at-the-sandy-beach-on-a-bright-sunny-day_181624-5357.jpg" to "Площадки",
+        "https://img.freepik.com/free-photo/back-view-of-woman-signaling-teammate-with-hands-while-playing-volleyball_23-2148662648.jpg" to "Партия"
     )
 }

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import hh.school.lesson_6_zemskov.databinding.FragmentOneItemBinding
 
 class OneItemFragment : Fragment() {
@@ -18,7 +19,10 @@ class OneItemFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentOneItemBinding.inflate(inflater, container, false)
-        (requireActivity() as MainActivity).addMenu(R.menu.item_one_screen_actions, viewLifecycleOwner)
+        binding.toolbar.setOnMenuItemClickListener { item ->
+            Toast.makeText(this.context, item.title, Toast.LENGTH_SHORT).show()
+            true
+        }
         return binding.root
     }
 

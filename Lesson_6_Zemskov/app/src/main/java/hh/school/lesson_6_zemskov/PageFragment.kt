@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import com.bumptech.glide.Glide
 import hh.school.lesson_6_zemskov.databinding.FragmentPageBinding
 
@@ -15,16 +16,8 @@ class PageFragment : Fragment() {
     private var _binding: FragmentPageBinding? = null
     private val binding get() = _binding!!
 
-    private var paramUrl: String? = null
-    private var paramCaption: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            paramUrl = it.getString(ARG_URL)
-            paramCaption = it.getString(ARG_CAPTION)
-        }
-    }
+    private val paramUrl by lazy { arguments?.getString(ARG_URL) }
+    private val paramCaption by lazy { arguments?.getString(ARG_CAPTION) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,10 +45,10 @@ class PageFragment : Fragment() {
         @JvmStatic
         fun newInstance(paramUrl: String, paramCaption: String) =
             PageFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_URL, paramUrl)
-                    putString(ARG_CAPTION, paramCaption)
-                }
+                arguments = bundleOf(
+                    ARG_URL to paramUrl,
+                    ARG_CAPTION to paramCaption
+                )
             }
     }
 }

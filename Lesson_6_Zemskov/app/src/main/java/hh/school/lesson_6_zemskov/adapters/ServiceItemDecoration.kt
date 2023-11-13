@@ -2,12 +2,11 @@ package hh.school.lesson_6_zemskov.adapters
 
 import android.graphics.Rect
 import android.view.View
-import androidx.annotation.DimenRes
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 
 class ServiceItemDecoration(
-    @DimenRes private val dimenResId: Int
+    private val space: Int
 ) : ItemDecoration() {
     override fun getItemOffsets(
         outRect: Rect,
@@ -17,7 +16,6 @@ class ServiceItemDecoration(
     ) {
         super.getItemOffsets(outRect, view, parent, state)
 
-        val space = parent.context.resources.getDimensionPixelOffset(dimenResId)
         outRect.bottom = space
         outRect.left = space
         outRect.right = space
