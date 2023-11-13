@@ -30,7 +30,7 @@ class TwoItemFragment : Fragment() {
         }
 
         binding.recyclerView.addItemDecoration(
-            ServiceItemDecoration(8)
+            ServiceItemDecoration(resources.getDimensionPixelOffset(R.dimen.services_divider_size))
         )
         binding.recyclerView.adapter = servicesAdapter
         servicesAdapter.setList(DataSource.listServices)
