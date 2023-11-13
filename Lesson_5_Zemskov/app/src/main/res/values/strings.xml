@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Lesson_5_Zemskov</string>
+    <string name="button_go_to_second_activity_text">Перейти к 2</string>
+    <string name="button_go_to_fourth_activity_text">Перейти к 4</string>
+    <string name="text_view_current_date_time_text">Текущая дата и время:\n%s</string>
+    <string name="button_go_to_fourth_activity_again_text">Перейти к 4 снова</string>
+    <string name="button_go_to_third_activity_text">Перейти к 3</string>
+    <string name="button_go_to_main_activity_text">Перейти к 1</string>
+    <string name="button_go_to_fifth_activity_text">Перейти к 5</string>
+    <string name="button_deliver_result_text">Доставить результат</string>
+    <string name="button_save_text">Сохранить</string>
+    <string name="edit_text_value_data_error_text">Пустое значение</string>
+    <string name="button_go_to_sixth_activity_text">Перейти к 6</string>
+    <string name="toolbar_title">Услуги</string>
+    <string name="app_bar_expanded_text">Услуги управляющей компании будут\n доступны после сдачи дома</string>
+    <string name="all_services_text">ВСЕ</string>
+    <string name="offer_service">Предложить услугу</string>
+</resources>
