@@ -7,3 +7,7 @@
 [Lesson_3](Lesson_3_Zemskov/)
 
 [Lesson_4](Lesson_4_Zemskov/)
+
+[Lesson_5](Lesson_5_Zemskov/)
+
+[Lesson_6](Lesson_6_Zemskov/)
