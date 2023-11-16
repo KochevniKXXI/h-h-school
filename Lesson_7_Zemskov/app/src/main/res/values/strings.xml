@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Lesson_7_Zemskov</string>
+    <string name="toolbar_title">The Most SPB</string>
+    <string name="menu_actions_item_info_title">Информация</string>
+    <string name="menu_actions_item_map_title">На карте</string>
+    <string name="bottom_app_bar_title">Напомнить</string>
+    <string name="button_retry_text">Повторить попытку</string>
+    <string name="text_view_info_empty_list_bridges">Нет доступных мостов</string>
+    <string name="button_retry_text_search">Искать ещё раз</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

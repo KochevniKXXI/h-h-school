@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="item_bridge_headline_margin_top">16dp</dimen>
+    <dimen name="item_bridge_image_margin">16dp</dimen>
+    <dimen name="item_bridge_icon_button_margin">4dp</dimen>
+    <dimen name="description_bridge_margin_top">12dp</dimen>
+    <dimen name="description_bridge_margin_horizontal">16dp</dimen>
+    <dimen name="toolbar_expanded_height">200dp</dimen>
+    <dimen name="bottom_app_bar_drawable_padding">16dp</dimen>
+    <dimen name="button_reminder_icon_padding">16dp</dimen>
+    <dimen name="item_bridge_text_gone_margin_end">16dp</dimen>
+</resources>

@@ -1,0 +1,9 @@
+<resources>
+    <style name="Base.Theme.Lesson_7_Zemskov" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/caribbean_green_300</item>
+        <item name="android:statusBarColor">@color/black_alpha_8</item>
+        <item name="android:textColorPrimary">@color/black_alpha_87</item>
+    </style>
+
+    <style name="Theme.Lesson_7_Zemskov" parent="Base.Theme.Lesson_7_Zemskov" />
+</resources>
