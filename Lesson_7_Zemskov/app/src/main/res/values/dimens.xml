@@ -9,4 +9,5 @@
     <dimen name="bottom_app_bar_drawable_padding">16dp</dimen>
     <dimen name="button_reminder_icon_padding">16dp</dimen>
     <dimen name="item_bridge_text_gone_margin_end">16dp</dimen>
+    <dimen name="app_bar_elevation">8dp</dimen>
 </resources>

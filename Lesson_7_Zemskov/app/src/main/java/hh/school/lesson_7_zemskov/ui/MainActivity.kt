@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.SystemBarStyle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowCompat
 import androidx.core.view.updatePadding
 import hh.school.lesson_7_zemskov.R
 import hh.school.lesson_7_zemskov.databinding.ActivityMainBinding
@@ -32,6 +33,12 @@ class MainActivity : AppCompatActivity() {
             )
             windowInsets
         }
+
+        WindowCompat.getInsetsController(window, window.decorView).apply {
+            isAppearanceLightNavigationBars = false
+            isAppearanceLightStatusBars = false
+        }
+
         setContentView(binding.root)
     }
 }

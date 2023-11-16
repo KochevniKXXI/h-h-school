@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
@@ -47,8 +48,11 @@ class DetailsBridgeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentDetailsBridgeBinding.inflate(layoutInflater, container, false)
-        binding.appBarLayout.setOnApplyWindowInsetsListener { view, windowInsets ->
-            view.updatePadding(top = windowInsets.stableInsetTop)
+        binding.collapsingToolbarLayout.setOnApplyWindowInsetsListener { _, windowInsets ->
+            binding.toolbarDetailsBridge.updatePadding(top = windowInsets.systemWindowInsetTop)
+            binding.imageViewExpandedToolbarBackground.updateLayoutParams {
+                height += windowInsets.systemWindowInsetTop
+            }
             windowInsets
         }
         return binding.root
