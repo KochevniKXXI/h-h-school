@@ -1,30 +1,34 @@
 package hh.school.lesson_7_zemskov.utils
 
-import kotlin.math.abs
-
 data class Time constructor(
     private val hours: Int,
     private val minutes: Int
 ) : Comparable<Time> {
     companion object {
-        fun parse(source: String?): Time {
-            if (source == null) throw IllegalArgumentException()
+        fun parse(source: String): Time {
             val list = source.split(":").take(2).toMutableList()
             if (list.size == 2) {
-                list.forEachIndexed { index, string ->
-                    if (index == 0) {
-                        list[index] = string.substringAfterLast(' ')
-                    } else {
-                        list[index] = string.substringBefore(' ')
-                    }
-                }
-            }
-
-            return Time(list[0].toInt(), list[1].toInt())
+                list[0] = list[0].substringAfterLast(' ')
+                list[1] = list[1].substringBefore(' ')
+                return Time(list[0].toInt(), list[1].toInt())
+            } else throw IllegalArgumentException()
         }
     }
 
-    fun leftUntil(other: Time) = Time(abs(other.hours - this.hours), abs(other.minutes - this.minutes))
+    fun until(other: Time) =
+        if (other.minutes >= this.minutes) {
+            if (other.hours >= this.hours) {
+                Time(other.hours - this.hours, other.minutes - this.minutes)
+            } else {
+                Time(24 - this.hours + other.hours, other.minutes - this.minutes)
+            }
+        } else {
+            if (other.hours >= this.hours) {
+                Time(other.hours - this.hours - 1, 60 - this.minutes + other.minutes)
+            } else {
+                Time(24 - this.hours + other.hours - 1, 60 - this.minutes + other.minutes)
+            }
+        }
 
     override fun compareTo(other: Time) = compareValuesBy(
         this,
@@ -40,8 +44,7 @@ class TimeRange(override val start: Time, override val endInclusive: Time) : Clo
     override fun contains(value: Time): Boolean {
         return if (start <= endInclusive) {
             super.contains(value)
-        }
-        else {
+        } else {
             value >= start || value <= endInclusive
         }
     }

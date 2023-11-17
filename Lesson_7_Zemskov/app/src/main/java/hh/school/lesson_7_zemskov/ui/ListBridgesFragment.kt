@@ -10,6 +10,7 @@ import androidx.fragment.app.commit
 import androidx.lifecycle.lifecycleScope
 import hh.school.lesson_7_zemskov.R
 import hh.school.lesson_7_zemskov.data.BridgesApiClient
+import hh.school.lesson_7_zemskov.data.model.asInternalModel
 import hh.school.lesson_7_zemskov.databinding.FragmentListBridgesBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -45,16 +46,18 @@ class ListBridgesFragment : Fragment() {
 
         binding.layoutInfo.circularProgressIndicator.setVisibilityAfterHide(View.GONE)
 
+        binding.layoutInfo.buttonRetry.setOnClickListener {
+            loadBridges()
+        }
+
         binding.recyclerViewBridges.adapter = bridgesAdapter.apply {
             onClick = { id, bridgeDivorces ->
-                id?.let { bridgeId ->
-                    parentFragmentManager.commit {
-                        add(
-                            R.id.fragmentContainerViewMain,
-                            DetailsBridgeFragment.newInstance(bridgeId, bridgeDivorces)
-                        )
-                        addToBackStack(null)
-                    }
+                parentFragmentManager.commit {
+                    add(
+                        R.id.fragmentContainerViewMain,
+                        DetailsBridgeFragment.newInstance(id, bridgeDivorces)
+                    )
+                    addToBackStack(null)
                 }
             }
         }
@@ -68,6 +71,8 @@ class ListBridgesFragment : Fragment() {
 
     private fun loadBridges() {
         binding.layoutInfo.circularProgressIndicator.show()
+        binding.layoutInfo.textViewInfo.visibility = View.GONE
+        binding.layoutInfo.buttonRetry.visibility = View.GONE
         lifecycleScope.launch {
             delay(1_000)
             runCatching {
@@ -82,19 +87,17 @@ class ListBridgesFragment : Fragment() {
                     binding.layoutInfo.textViewInfo.visibility = View.VISIBLE
                     binding.layoutInfo.buttonRetry.visibility = View.VISIBLE
                 } else {
-                    bridgesAdapter.submitBridges(it)
+                    bridgesAdapter.submitBridges(it.map { networkBridge -> networkBridge.asInternalModel() })
                     binding.layoutInfo.textViewInfo.visibility = View.GONE
                     binding.layoutInfo.buttonRetry.visibility = View.GONE
                     binding.recyclerViewBridges.visibility = View.VISIBLE
                 }
             }.onFailure {
-                childFragmentManager.commit {
-                    binding.recyclerViewBridges.visibility = View.GONE
-                    binding.layoutInfo.textViewInfo.text = it.message
-                    binding.layoutInfo.buttonRetry.text = getString(R.string.button_retry_text)
-                    binding.layoutInfo.textViewInfo.visibility = View.VISIBLE
-                    binding.layoutInfo.buttonRetry.visibility = View.VISIBLE
-                }
+                binding.recyclerViewBridges.visibility = View.GONE
+                binding.layoutInfo.textViewInfo.text = it.message
+                binding.layoutInfo.buttonRetry.text = getString(R.string.button_retry_text)
+                binding.layoutInfo.textViewInfo.visibility = View.VISIBLE
+                binding.layoutInfo.buttonRetry.visibility = View.VISIBLE
             }
             binding.layoutInfo.circularProgressIndicator.hide()
         }

@@ -1,15 +1,14 @@
 package hh.school.lesson_7_zemskov.data.model
 
-import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import kotlinx.parcelize.Parcelize
+import hh.school.lesson_7_zemskov.model.Divorce
 
-@Parcelize
-data class Divorce(
+data class NetworkDivorce(
     @SerializedName("start") val start: String?,
     @SerializedName("end") val end: String?
-) : Parcelable {
-    override fun toString(): String {
-        return "$start – $end"
-    }
-}
+)
+
+fun NetworkDivorce.asInternalModel() = Divorce(
+    start = start ?: "",
+    end = end ?: ""
+)
