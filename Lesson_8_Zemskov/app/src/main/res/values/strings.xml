@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Lesson_8_Zemskov</string>
+    <string name="toolbar_title">Заметки</string>
+    <string name="fab_add_note_content_description">Создать заметку</string>
+    <string name="edit_note_item_colorize_title">Выбрать цвет</string>
+    <string name="edit_text_title_note_hint">Название</string>
+    <string name="edit_text_content_note_hint">Текст заметки</string>
+    <string name="colorize_dialog_title">Выбор цвета</string>
+    <string name="button_cancel_text">Отмена</string>
+    <string name="note_actions_dialog_title">Удалить заметку?</string>
+    <string name="button_delete_text">Удалить</string>
+    <string name="button_archive_text">Архивировать</string>
+    <string name="message_empty_list_notes">Вы ещё не создали ни одной заметки</string>
+    <string name="message_note_deleted">Данная заметка была удалена</string>
+    <string name="item_search_title">Поиск</string>
+    <string name="message_empty_response">Подходящих заметок не найдено</string>
+</resources>

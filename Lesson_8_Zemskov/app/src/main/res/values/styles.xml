@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--  Заголовок диалога  -->
+    <style name="TextAppearance.NotesApp.HeadlineSmall" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="lineHeight">28dp</item>
+        <item name="android:letterSpacing">0</item>
+    </style>
+
+    <!--  Кнопка диалога  -->
+    <style name="TextAppearance.NotesApp.Button" parent="TextAppearance.MaterialComponents.Button">
+        <item name="lineHeight">16dp</item>
+        <item name="android:letterSpacing">0</item>
+    </style>
+
+    <!--  Заголовок панели инструментов  -->
+    <style name="TextAppearance.NotesApp.TitleLarge" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textSize">18sp</item>
+        <item name="lineHeight">24dp</item>
+        <item name="android:letterSpacing">0</item>
+    </style>
+
+    <!--  Название заметки в списке  -->
+    <style name="TextAppearance.NotesApp.TitleSmall" parent="TextAppearance.NotesApp.BodyLarge">
+        <item name="fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <!--  Текст заметки в списке  -->
+    <style name="TextAppearance.NotesApp.BodyMedium" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="lineHeight">20dp</item>
+        <item name="android:letterSpacing">0</item>
+    </style>
+
+    <!--  Название заметки в редакторе  -->
+    <style name="TextAppearance.NotesApp.TitleMedium" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="lineHeight">28dp</item>
+        <item name="android:letterSpacing">0</item>
+    </style>
+
+    <!--  Текст заметки в редакторе  -->
+    <style name="TextAppearance.NotesApp.BodyLarge" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="lineHeight">24dp</item>
+        <item name="android:letterSpacing">0</item>
+    </style>
+</resources>

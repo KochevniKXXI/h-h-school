@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="note_background_colors">
+        <item>@color/red_500</item>
+        <item>@color/pink_500</item>
+        <item>@color/purple_500</item>
+        <item>@color/deep_purple_500</item>
+        <item>@color/blue_400</item>
+        <item>@color/light_blue_500</item>
+        <item>@color/turquoise_500</item>
+        <item>@color/deep_green_500</item>
+        <item>@color/green_500</item>
+        <item>@color/lime_500</item>
+        <item>@color/yellow_500</item>
+        <item>@color/amber_500</item>
+        <item>@color/deep_orange_500</item>
+        <item>@color/light_gray_500</item>
+        <item>@color/blue_gray_500</item>
+        <item>@color/white</item>
+    </array>
+</resources>

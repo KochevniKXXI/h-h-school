@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="app_bar_elevation">8dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="item_note_content_padding">16dp</dimen>
+    <dimen name="item_note_elevation">8dp</dimen>
+    <dimen name="item_note_title_margin_bottom">4dp</dimen>
+    <dimen name="item_note_divider_size">8dp</dimen>
+    <dimen name="item_color_divider_size">12dp</dimen>
+    <dimen name="note_editor_edit_text_title_note_margin_top">24dp</dimen>
+    <dimen name="color_circle_size">49dp</dimen>
+    <dimen name="color_chart_padding">24dp</dimen>
+    <dimen name="colorize_dialog_corner_size">8dp</dimen>
+    <dimen name="item_color_stroke_width">1dp</dimen>
+</resources>
