@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?><!--<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+
+<com.google.android.material.button.MaterialButton xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+    android:layout_width="@dimen/color_circle_size"
+    android:layout_height="@dimen/color_circle_size"
+    android:insetTop="0dp"
+    android:insetBottom="0dp"
+    app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Full"
+    android:padding="12dp"
+    tools:icon="@drawable/ic_done"
+    tools:backgroundTint="@color/blue_400"
+    tools:layout_marginBottom="12dp"
+    tools:layout_marginRight="12dp" />
