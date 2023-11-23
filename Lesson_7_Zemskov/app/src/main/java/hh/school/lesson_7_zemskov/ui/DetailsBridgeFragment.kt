@@ -12,9 +12,9 @@ import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import hh.school.lesson_7_zemskov.R
 import hh.school.lesson_7_zemskov.data.BridgesApiClient
+import hh.school.lesson_7_zemskov.data.model.NetworkBridge
 import hh.school.lesson_7_zemskov.data.model.asInternalModel
 import hh.school.lesson_7_zemskov.databinding.FragmentDetailsBridgeBinding
-import hh.school.lesson_7_zemskov.extensions.asString
 import hh.school.lesson_7_zemskov.model.Divorce
 import hh.school.lesson_7_zemskov.utils.Time
 import kotlinx.coroutines.delay
@@ -65,7 +65,7 @@ class DetailsBridgeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.toolbarDetailsBridge.setNavigationOnClickListener {
-            parentFragmentManager.popBackStack()
+            (activity as? Navigator)?.popBackStack()
         }
 
         binding.itemBridge.iconButtonReminder.visibility = View.GONE
@@ -94,60 +94,72 @@ class DetailsBridgeFragment : Fragment() {
                 BridgesApiClient.apiService.getBridge(id)
             }.onSuccess { networkBridge ->
                 if (networkBridge.name == null) {
-                    binding.itemBridge.root.visibility = View.GONE
-                    binding.textViewDescription.visibility = View.GONE
-                    binding.layoutInfo.textViewInfo.text =
-                        getString(R.string.text_view_info_empty_list_bridges)
-                    binding.layoutInfo.buttonRetry.text =
-                        getString(R.string.button_retry_text_search)
-                    binding.layoutInfo.textViewInfo.visibility = View.VISIBLE
-                    binding.layoutInfo.buttonRetry.visibility = View.VISIBLE
+                    bindEmpty()
                 } else {
-                    val bridge = networkBridge.asInternalModel()
-                    val calendar = Calendar.getInstance()
-                    val currentTime =
-                        Time(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE))
-                    val divorces = bridgeDivorces.map {
-                        try {
-                            Time.parse(it.start)..Time.parse(it.end)
-                        } catch (e: Exception) {
-                            null
-                        }
-                    }
-                    val images = if (divorces.any { it != null && currentTime in it }) {
-                        R.drawable.ic_brige_late to networkBridge.photoOpenUrl
-                    } else if (divorces.any {
-                            it != null && currentTime.until(it.start) <= Time(
-                                1,
-                                0
-                            )
-                        }) {
-                        R.drawable.ic_brige_soon to networkBridge.photoOpenUrl
-                    } else {
-                        R.drawable.ic_brige_normal to networkBridge.photoCloseUrl
-                    }
-
-                    Glide.with(requireContext()).load(images.second)
-                        .into(binding.imageViewExpandedToolbarBackground)
-                    binding.collapsingToolbarLayout.title = bridge.name
-                    binding.itemBridge.textViewName.text = bridge.name
-                    binding.itemBridge.textViewDivorces.text = bridgeDivorces.asString()
-                    binding.itemBridge.imageViewBridgeState.setImageResource(images.first)
-                    binding.textViewDescription.text = bridge.description
-                    binding.layoutInfo.textViewInfo.visibility = View.GONE
-                    binding.layoutInfo.buttonRetry.visibility = View.GONE
-                    binding.itemBridge.root.visibility = View.VISIBLE
-                    binding.textViewDescription.visibility = View.VISIBLE
+                    bindBridge(networkBridge)
                 }
             }.onFailure {
-                binding.itemBridge.root.visibility = View.GONE
-                binding.textViewDescription.visibility = View.GONE
-                binding.layoutInfo.textViewInfo.text = it.message
-                binding.layoutInfo.buttonRetry.text = getString(R.string.button_retry_text)
-                binding.layoutInfo.textViewInfo.visibility = View.VISIBLE
-                binding.layoutInfo.buttonRetry.visibility = View.VISIBLE
+                bindError(it)
             }
             binding.layoutInfo.circularProgressIndicator.hide()
         }
+    }
+
+    private fun bindError(it: Throwable) {
+        binding.itemBridge.root.visibility = View.GONE
+        binding.textViewDescription.visibility = View.GONE
+        binding.layoutInfo.textViewInfo.text = it.message
+        binding.layoutInfo.buttonRetry.text = getString(R.string.button_retry_text)
+        binding.layoutInfo.textViewInfo.visibility = View.VISIBLE
+        binding.layoutInfo.buttonRetry.visibility = View.VISIBLE
+    }
+
+    private fun bindBridge(networkBridge: NetworkBridge) {
+        val bridge = networkBridge.asInternalModel().copy(divorces = bridgeDivorces)
+        val calendar = Calendar.getInstance()
+        val currentTime =
+            Time(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE))
+        val divorces = bridgeDivorces.map {
+            try {
+                Time.parse(it.start)..Time.parse(it.end)
+            } catch (e: Exception) {
+                null
+            }
+        }
+        val images = if (divorces.any { it != null && currentTime in it }) {
+            R.drawable.ic_brige_late to networkBridge.photoOpenUrl
+        } else if (divorces.any {
+                it != null && currentTime.until(it.start) <= Time(
+                    1,
+                    0
+                )
+            }) {
+            R.drawable.ic_brige_soon to networkBridge.photoOpenUrl
+        } else {
+            R.drawable.ic_brige_normal to networkBridge.photoCloseUrl
+        }
+
+        Glide.with(requireContext()).load(images.second)
+            .into(binding.imageViewExpandedToolbarBackground)
+        binding.collapsingToolbarLayout.title = bridge.name
+        binding.itemBridge.textViewName.text = bridge.name
+        binding.itemBridge.textViewDivorces.text = bridge.getDivorcesAsString()
+        binding.itemBridge.imageViewBridgeState.setImageResource(images.first)
+        binding.textViewDescription.text = bridge.description
+        binding.layoutInfo.textViewInfo.visibility = View.GONE
+        binding.layoutInfo.buttonRetry.visibility = View.GONE
+        binding.itemBridge.root.visibility = View.VISIBLE
+        binding.textViewDescription.visibility = View.VISIBLE
+    }
+
+    private fun bindEmpty() {
+        binding.itemBridge.root.visibility = View.GONE
+        binding.textViewDescription.visibility = View.GONE
+        binding.layoutInfo.textViewInfo.text =
+            getString(R.string.text_view_info_empty_list_bridges)
+        binding.layoutInfo.buttonRetry.text =
+            getString(R.string.button_retry_text_search)
+        binding.layoutInfo.textViewInfo.visibility = View.VISIBLE
+        binding.layoutInfo.buttonRetry.visibility = View.VISIBLE
     }
 }

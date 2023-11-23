@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import hh.school.lesson_7_zemskov.R
 import hh.school.lesson_7_zemskov.databinding.ItemBridgeBinding
-import hh.school.lesson_7_zemskov.extensions.asString
 import hh.school.lesson_7_zemskov.model.Bridge
 import hh.school.lesson_7_zemskov.model.Divorce
 import hh.school.lesson_7_zemskov.utils.Time
@@ -24,7 +23,7 @@ class BridgeViewHolder(
 
     fun bind(bridge: Bridge) = with(binding) {
         textViewName.text = bridge.name
-        textViewDivorces.text = bridge.divorces.asString()
+        textViewDivorces.text = bridge.getDivorcesAsString()
 
         val currentTime = Time(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE))
         val divorces = bridge.divorces.map {

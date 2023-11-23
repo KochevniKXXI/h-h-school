@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.commit
 import androidx.lifecycle.lifecycleScope
 import hh.school.lesson_7_zemskov.R
 import hh.school.lesson_7_zemskov.data.BridgesApiClient
@@ -52,13 +51,12 @@ class ListBridgesFragment : Fragment() {
 
         binding.recyclerViewBridges.adapter = bridgesAdapter.apply {
             onClick = { id, bridgeDivorces ->
-                parentFragmentManager.commit {
-                    add(
-                        R.id.fragmentContainerViewMain,
-                        DetailsBridgeFragment.newInstance(id, bridgeDivorces)
+                (activity as? Navigator)?.startFragment(
+                    DetailsBridgeFragment.newInstance(
+                        id,
+                        bridgeDivorces
                     )
-                    addToBackStack(null)
-                }
+                )
             }
         }
         loadBridges()
