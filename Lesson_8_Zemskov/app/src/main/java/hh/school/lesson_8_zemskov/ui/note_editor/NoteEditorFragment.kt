@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.view.children
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import hh.school.lesson_8_zemskov.NotesApplication
@@ -13,6 +14,7 @@ import hh.school.lesson_8_zemskov.R
 import hh.school.lesson_8_zemskov.databinding.FragmentNoteEditorBinding
 import hh.school.lesson_8_zemskov.databinding.MergeInfoBinding
 import hh.school.lesson_8_zemskov.model.Note
+import hh.school.lesson_8_zemskov.ui.Navigator
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.onEmpty
 import kotlinx.coroutines.flow.onStart
@@ -34,7 +36,7 @@ class NoteEditorFragment : Fragment(), OnColorChangeListener {
 
     companion object {
         @JvmStatic
-        fun newInstance(noteId: String?) = NoteEditorFragment().apply {
+        fun newInstance(noteId: String? = null) = NoteEditorFragment().apply {
             arguments = bundleOf(
                 ARG_NOTE_ID to noteId
             )
@@ -56,23 +58,24 @@ class NoteEditorFragment : Fragment(), OnColorChangeListener {
 
         infoBinding.circularProgressIndicator.setVisibilityAfterHide(View.GONE)
 
+        binding.toolbar.setNavigationOnClickListener {
+            lifecycleScope.launch {
+                noteId?.let { updateNote() } ?: insertNewNote()
+            }
+            (activity as? Navigator)?.popBackStack()
+        }
+
         val noteStream = getNoteStream()
 
         lifecycleScope.launch {
             noteStream.collect {
                 note = it
                 infoBinding.circularProgressIndicator.hide()
-                infoBinding.textViewMessage.visibility = View.GONE
+                infoBinding.textViewMessage.isVisible = false
                 binding.toolbar.menu.children.forEach { menuItem -> menuItem.isVisible = true }
                 binding.editTextTitle.setText(note.title)
                 binding.editTextContent.setText(note.content)
 
-                binding.toolbar.setNavigationOnClickListener {
-                    lifecycleScope.launch {
-                        noteId?.let { updateNote() } ?: insertNewNote()
-                    }
-                    activity?.supportFragmentManager?.popBackStack()
-                }
                 binding.toolbar.setOnMenuItemClickListener { itemMenu ->
                     when (itemMenu.itemId) {
                         R.id.itemColorize -> {
@@ -88,9 +91,9 @@ class NoteEditorFragment : Fragment(), OnColorChangeListener {
 
 
     override fun onDestroyView() {
-        super.onDestroyView()
         _binding = null
         _infoBinding = null
+        super.onDestroyView()
     }
 
     override fun onColorChange(color: Int) {
@@ -105,11 +108,11 @@ class NoteEditorFragment : Fragment(), OnColorChangeListener {
             .onEmpty {
                 infoBinding.circularProgressIndicator.hide()
                 infoBinding.textViewMessage.text = getString(R.string.message_note_deleted)
-                infoBinding.textViewMessage.visibility = View.VISIBLE
-                binding.editTextTitle.visibility = View.GONE
-                binding.editTextContent.visibility = View.GONE
+                infoBinding.textViewMessage.isVisible = true
+                binding.editTextTitle.isVisible = false
+                binding.editTextContent.isVisible = false
                 binding.toolbar.setNavigationOnClickListener {
-                    activity?.supportFragmentManager?.popBackStack()
+                    (activity as? Navigator)?.popBackStack()
                 }
             }
     } ?: flowOf(Note())

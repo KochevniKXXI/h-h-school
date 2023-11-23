@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import hh.school.lesson_8_zemskov.NotesApplication
@@ -18,6 +19,7 @@ import hh.school.lesson_8_zemskov.databinding.MergeInfoBinding
 import hh.school.lesson_8_zemskov.ui.Navigator
 import hh.school.lesson_8_zemskov.ui.SpaceEvenlyItemDecoration
 import hh.school.lesson_8_zemskov.ui.list_notes.adapter.NotesAdapter
+import hh.school.lesson_8_zemskov.ui.note_editor.NoteEditorFragment
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
@@ -54,9 +56,9 @@ class ListNotesFragment : Fragment(), OnCompletionListener {
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
         _infoBinding = null
+        _binding = null
+        super.onDestroyView()
     }
 
     override fun onCompletion(dialogInterface: DialogInterface, which: Int, noteId: String) {
@@ -81,7 +83,11 @@ class ListNotesFragment : Fragment(), OnCompletionListener {
             adapter = notesAdapter.apply {
                 onNoteClickListener = object : OnNoteClickListener {
                     override fun onClick(noteId: String) {
-                        (activity as? Navigator)?.startNoteEditorFragment(noteId)
+                        (activity as? Navigator)?.startFragment(
+                            NoteEditorFragment.newInstance(
+                                noteId
+                            )
+                        )
                     }
 
                     override fun onLongClick(noteId: String): Boolean {
@@ -95,7 +101,7 @@ class ListNotesFragment : Fragment(), OnCompletionListener {
         }
 
         binding.floatingActionButton.setOnClickListener {
-            (activity as? Navigator)?.startNoteEditorFragment()
+            (activity as? Navigator)?.startFragment(NoteEditorFragment.newInstance())
         }
 
         infoBinding.circularProgressIndicator.setVisibilityAfterHide(View.GONE)
@@ -113,18 +119,16 @@ class ListNotesFragment : Fragment(), OnCompletionListener {
                 }
             })
 
-            (actionView as SearchView).apply {
-                setOnQueryTextListener(object : OnQueryTextListener {
-                    override fun onQueryTextSubmit(query: String?): Boolean {
-                        return true
-                    }
+            (actionView as SearchView).setOnQueryTextListener(object : OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    return true
+                }
 
-                    override fun onQueryTextChange(newText: String?): Boolean {
-                        searchNotes(newText)
-                        return true
-                    }
-                })
-            }
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    searchNotes(newText)
+                    return true
+                }
+            })
         }
     }
 
@@ -140,9 +144,9 @@ class ListNotesFragment : Fragment(), OnCompletionListener {
                         if (it.isEmpty()) {
                             infoBinding.textViewMessage.text =
                                 getString(R.string.message_empty_response)
-                            infoBinding.textViewMessage.visibility = View.VISIBLE
+                            infoBinding.textViewMessage.isVisible = true
                         } else {
-                            infoBinding.textViewMessage.visibility = View.GONE
+                            infoBinding.textViewMessage.isVisible = false
                         }
                         notesAdapter.setNotes(it)
                     }
@@ -151,7 +155,7 @@ class ListNotesFragment : Fragment(), OnCompletionListener {
     }
 
     private fun getNotes() {
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             notesRepository.getNotArchivedNotesStream()
                 .onStart {
                     infoBinding.circularProgressIndicator.show()
@@ -161,9 +165,9 @@ class ListNotesFragment : Fragment(), OnCompletionListener {
                     if (it.isEmpty()) {
                         infoBinding.textViewMessage.text =
                             getString(R.string.message_empty_list_notes)
-                        infoBinding.textViewMessage.visibility = View.VISIBLE
+                        infoBinding.textViewMessage.isVisible = true
                     } else {
-                        infoBinding.textViewMessage.visibility = View.GONE
+                        infoBinding.textViewMessage.isVisible = false
                     }
                     notesAdapter.setNotes(it)
                 }

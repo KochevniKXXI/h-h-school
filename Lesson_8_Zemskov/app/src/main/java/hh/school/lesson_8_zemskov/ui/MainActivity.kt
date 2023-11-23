@@ -1,11 +1,11 @@
 package hh.school.lesson_8_zemskov.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import hh.school.lesson_8_zemskov.R
 import hh.school.lesson_8_zemskov.databinding.ActivityMainBinding
-import hh.school.lesson_8_zemskov.ui.note_editor.NoteEditorFragment
 
 class MainActivity : AppCompatActivity(), Navigator {
 
@@ -16,10 +16,14 @@ class MainActivity : AppCompatActivity(), Navigator {
         setContentView(binding.root)
     }
 
-    override fun startNoteEditorFragment(noteId: String?) {
+    override fun startFragment(fragment: Fragment) {
         supportFragmentManager.commit {
-            replace(R.id.fragmentContainerView, NoteEditorFragment.newInstance(noteId))
+            replace(R.id.fragmentContainerView, fragment)
             addToBackStack(null)
         }
+    }
+
+    override fun popBackStack() {
+        supportFragmentManager.popBackStack()
     }
 }

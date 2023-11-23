@@ -29,10 +29,10 @@ class NoteActionsDialogFragment : DialogFragment() {
             (parentFragment as OnCompletionListener).onCompletion(dialogInterface, which, noteId)
         }
         return MaterialAlertDialogBuilder(requireContext())
-            .setTitle(getString(R.string.note_actions_dialog_title))
-            .setPositiveButton(getString(R.string.button_delete_text), listener)
-            .setNegativeButton(getString(R.string.button_archive_text), listener)
-            .setNeutralButton(getString(R.string.button_cancel_text), listener)
+            .setTitle(R.string.note_actions_dialog_title)
+            .setPositiveButton(R.string.button_delete_text, listener)
+            .setNegativeButton(R.string.button_archive_text, listener)
+            .setNeutralButton(R.string.button_cancel_text, listener)
             .apply {
                 (background as MaterialShapeDrawable).setCornerSize(
                     resources.getDimension(R.dimen.colorize_dialog_corner_size)

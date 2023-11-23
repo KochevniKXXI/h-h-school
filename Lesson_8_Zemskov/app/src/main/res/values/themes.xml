@@ -22,6 +22,12 @@
     <style name="ThemeOverlay.NotesApp.Dialog" parent="ThemeOverlay.MaterialComponents.Dialog">
         <item name="colorPrimary">@color/deep_blue_500</item>
     </style>
+    
+    <style name="ThemeOverlay.NotesApp.Toolbar.Primary" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
+        <item name="colorPrimary">@color/white</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="colorSecondary">@color/white</item>
+    </style>
 
     <style name="Theme.Lesson_8_Zemskov" parent="Base.Theme.Lesson_8_Zemskov" />
 </resources>
