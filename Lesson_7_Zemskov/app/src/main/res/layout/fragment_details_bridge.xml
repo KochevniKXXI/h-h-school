@@ -16,9 +16,9 @@
             android:id="@+id/collapsingToolbarLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:contentScrim="?colorPrimary"
             app:collapsedTitleTextAppearance="?textAppearanceHeadline6"
             app:collapsedTitleTextColor="@color/white"
+            app:contentScrim="?colorPrimary"
             app:expandedTitleTextColor="@color/transparent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
@@ -64,6 +64,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/description_bridge_margin_horizontal"
                     android:layout_marginTop="@dimen/description_bridge_margin_top"
+                    android:layout_marginBottom="?actionBarSize"
                     android:textAppearance="?textAppearanceBody2"
                     android:textColor="@color/dull_grey_600"
                     app:lineHeight="20dp" />

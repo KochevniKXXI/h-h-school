@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
@@ -68,7 +69,7 @@ class DetailsBridgeFragment : Fragment() {
             (activity as? Navigator)?.popBackStack()
         }
 
-        binding.itemBridge.iconButtonReminder.visibility = View.GONE
+        binding.itemBridge.iconButtonReminder.isVisible = false
 
         binding.layoutInfo.circularProgressIndicator.setVisibilityAfterHide(View.GONE)
 
@@ -86,8 +87,8 @@ class DetailsBridgeFragment : Fragment() {
 
     private fun loadBridge(id: Int) {
         binding.layoutInfo.circularProgressIndicator.show()
-        binding.layoutInfo.textViewInfo.visibility = View.GONE
-        binding.layoutInfo.buttonRetry.visibility = View.GONE
+        binding.layoutInfo.textViewInfo.isVisible = false
+        binding.layoutInfo.buttonRetry.isVisible = false
         lifecycleScope.launch {
             delay(1_000)
             runCatching {
@@ -106,12 +107,12 @@ class DetailsBridgeFragment : Fragment() {
     }
 
     private fun bindError(it: Throwable) {
-        binding.itemBridge.root.visibility = View.GONE
-        binding.textViewDescription.visibility = View.GONE
+        binding.itemBridge.root.isVisible = false
+        binding.textViewDescription.isVisible = false
         binding.layoutInfo.textViewInfo.text = it.message
         binding.layoutInfo.buttonRetry.text = getString(R.string.button_retry_text)
-        binding.layoutInfo.textViewInfo.visibility = View.VISIBLE
-        binding.layoutInfo.buttonRetry.visibility = View.VISIBLE
+        binding.layoutInfo.textViewInfo.isVisible = true
+        binding.layoutInfo.buttonRetry.isVisible = true
     }
 
     private fun bindBridge(networkBridge: NetworkBridge) {
@@ -146,20 +147,20 @@ class DetailsBridgeFragment : Fragment() {
         binding.itemBridge.textViewDivorces.text = bridge.getDivorcesAsString()
         binding.itemBridge.imageViewBridgeState.setImageResource(images.first)
         binding.textViewDescription.text = bridge.description
-        binding.layoutInfo.textViewInfo.visibility = View.GONE
-        binding.layoutInfo.buttonRetry.visibility = View.GONE
-        binding.itemBridge.root.visibility = View.VISIBLE
-        binding.textViewDescription.visibility = View.VISIBLE
+        binding.layoutInfo.textViewInfo.isVisible = false
+        binding.layoutInfo.buttonRetry.isVisible = false
+        binding.itemBridge.root.isVisible = true
+        binding.textViewDescription.isVisible = true
     }
 
     private fun bindEmpty() {
-        binding.itemBridge.root.visibility = View.GONE
-        binding.textViewDescription.visibility = View.GONE
+        binding.itemBridge.root.isVisible = false
+        binding.textViewDescription.isVisible = false
         binding.layoutInfo.textViewInfo.text =
             getString(R.string.text_view_info_empty_list_bridges)
         binding.layoutInfo.buttonRetry.text =
             getString(R.string.button_retry_text_search)
-        binding.layoutInfo.textViewInfo.visibility = View.VISIBLE
-        binding.layoutInfo.buttonRetry.visibility = View.VISIBLE
+        binding.layoutInfo.textViewInfo.isVisible = true
+        binding.layoutInfo.buttonRetry.isVisible = true
     }
 }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -69,33 +70,33 @@ class ListBridgesFragment : Fragment() {
 
     private fun loadBridges() {
         binding.layoutInfo.circularProgressIndicator.show()
-        binding.layoutInfo.textViewInfo.visibility = View.GONE
-        binding.layoutInfo.buttonRetry.visibility = View.GONE
+        binding.layoutInfo.textViewInfo.isVisible = false
+        binding.layoutInfo.buttonRetry.isVisible = false
         lifecycleScope.launch {
             delay(1_000)
             runCatching {
                 BridgesApiClient.apiService.getBridges()
             }.onSuccess {
                 if (it.isEmpty()) {
-                    binding.recyclerViewBridges.visibility = View.GONE
+                    binding.recyclerViewBridges.isVisible = false
                     binding.layoutInfo.textViewInfo.text =
                         getString(R.string.text_view_info_empty_list_bridges)
                     binding.layoutInfo.buttonRetry.text =
                         getString(R.string.button_retry_text_search)
-                    binding.layoutInfo.textViewInfo.visibility = View.VISIBLE
-                    binding.layoutInfo.buttonRetry.visibility = View.VISIBLE
+                    binding.layoutInfo.textViewInfo.isVisible = true
+                    binding.layoutInfo.buttonRetry.isVisible = true
                 } else {
                     bridgesAdapter.submitBridges(it.map { networkBridge -> networkBridge.asInternalModel() })
-                    binding.layoutInfo.textViewInfo.visibility = View.GONE
-                    binding.layoutInfo.buttonRetry.visibility = View.GONE
-                    binding.recyclerViewBridges.visibility = View.VISIBLE
+                    binding.layoutInfo.textViewInfo.isVisible = false
+                    binding.layoutInfo.buttonRetry.isVisible = false
+                    binding.recyclerViewBridges.isVisible = true
                 }
             }.onFailure {
-                binding.recyclerViewBridges.visibility = View.GONE
+                binding.recyclerViewBridges.isVisible = false
                 binding.layoutInfo.textViewInfo.text = it.message
                 binding.layoutInfo.buttonRetry.text = getString(R.string.button_retry_text)
-                binding.layoutInfo.textViewInfo.visibility = View.VISIBLE
-                binding.layoutInfo.buttonRetry.visibility = View.VISIBLE
+                binding.layoutInfo.textViewInfo.isVisible = true
+                binding.layoutInfo.buttonRetry.isVisible = true
             }
             binding.layoutInfo.circularProgressIndicator.hide()
         }
