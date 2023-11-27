@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Lesson_9_Zemskov</string>
+    <string name="temperature">%d°C</string>
+    <string name="wind">Ветер: %d м/с</string>
+    <string name="humidity">Влажность: %d</string>
+    <string name="pressure">Атмосферное давление: %d мм рт. ст.</string>
+    <string name="image_url">https://openweathermap.org/img/wn/%s@2x.png</string>
+    <string name="button_download_file_text">Загрузить файл</string>
+    <string name="notification_download_title">Загрузка файла</string>
+    <string name="button_download_file_loading_text">Идёт загрузка…</string>
+</resources>
