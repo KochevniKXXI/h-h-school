@@ -1,0 +1,13 @@
+<resources>
+    <style name="Base.Theme.Lesson_10_Zemskov" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/caribbean_green_300</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+        <item name="android:ambientShadowAlpha">0.12</item>
+        <item name="android:spotShadowAlpha">0.24</item>
+
+        <item name="toolbarStyle">@style/Widget.MaterialComponents.Toolbar.Primary</item>
+    </style>
+
+    <style name="Theme.Lesson_10_Zemskov" parent="Base.Theme.Lesson_10_Zemskov" />
+</resources>

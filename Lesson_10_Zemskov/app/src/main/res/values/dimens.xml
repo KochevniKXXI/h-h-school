@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="item_bridge_headline_margin_top">16dp</dimen>
+    <dimen name="item_bridge_image_margin">16dp</dimen>
+    <dimen name="standard_bottom_sheet_elevation">4dp</dimen>
+    <dimen name="layout_info_min_size">100dp</dimen>
+    <dimen name="layout_info_padding">16dp</dimen>
+    <dimen name="floating_action_button_margin">16dp</dimen>
+</resources>

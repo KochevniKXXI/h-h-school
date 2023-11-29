@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Lesson_10_Zemskov</string>
+    <string name="toolbar_title">The Most SPB</string>
+    <string name="button_retry_text">Повторить попытку</string>
+    <string name="text_view_info_empty_list_bridges">Нет доступных мостов</string>
+    <string name="button_retry_text_search">Искать ещё раз</string>
+    <string name="floating_action_button_my_location">Моё местоположение</string>
+</resources>
