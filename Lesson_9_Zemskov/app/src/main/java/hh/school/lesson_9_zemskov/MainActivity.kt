@@ -31,7 +31,6 @@ class MainActivity : AppCompatActivity(), WeatherServiceCallbacks {
             weatherService = (binder as WeatherService.WeatherBinder).service.apply {
                 serviceCallbacks = this@MainActivity
             }
-            weatherService?.getWeather()
         }
 
         override fun onServiceDisconnected(p0: ComponentName?) {

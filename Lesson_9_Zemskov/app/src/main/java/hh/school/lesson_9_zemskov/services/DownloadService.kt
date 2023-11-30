@@ -18,7 +18,6 @@ import hh.school.lesson_9_zemskov.downloadAndUnzip
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.FileOutputStream
 import java.net.URL
@@ -39,6 +38,7 @@ class DownloadService : Service() {
             }
     }
 
+    @Suppress("BlockingMethodInNonBlockingContext")
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         ServiceCompat.startForeground(
             this,
@@ -51,15 +51,13 @@ class DownloadService : Service() {
             }
         )
         CoroutineScope(Dispatchers.IO).launch {
-            withContext(Dispatchers.IO) {
-                URL(intent?.getStringExtra(KEY_URL)).downloadAndUnzip(
-                    FileOutputStream(File(filesDir, "image.jpg"))
-                ) { bytesCopied, length ->
-                    val percents = (bytesCopied * 100 / length).toInt()
-                    sendBroadcast(intentProgress.apply {
-                        putExtra(KEY_PROGRESS, percents)
-                    })
-                }
+            URL(intent?.getStringExtra(KEY_URL)).downloadAndUnzip(
+                FileOutputStream(File(filesDir, "image.jpg"))
+            ) { bytesCopied, length ->
+                val percents = (bytesCopied * 100 / length).toInt()
+                sendBroadcast(intentProgress.apply {
+                    putExtra(KEY_PROGRESS, percents)
+                })
             }
 
             sendBroadcast(intentProgress.apply {

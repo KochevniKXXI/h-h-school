@@ -30,6 +30,12 @@ class WeatherService : Service() {
         }
     }
 
+    override fun onCreate() {
+        super.onCreate()
+        getWeather()
+
+    }
+
     override fun onBind(intent: Intent?): IBinder {
         return WeatherBinder()
     }
@@ -44,7 +50,7 @@ class WeatherService : Service() {
             get() = this@WeatherService
     }
 
-    fun getWeather() {
+    private fun getWeather() {
         serviceScope.launch {
             weatherStream.collect {
                 serviceCallbacks?.displayWeather(it)
