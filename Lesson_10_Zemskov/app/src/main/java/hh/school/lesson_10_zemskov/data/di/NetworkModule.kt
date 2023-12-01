@@ -1,9 +1,10 @@
-package hh.school.lesson_10_zemskov.data.network
+package hh.school.lesson_10_zemskov.data.di
 
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import hh.school.lesson_10_zemskov.data.network.BridgesApiService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton

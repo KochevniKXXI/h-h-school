@@ -16,5 +16,5 @@ data class NetworkBridge(
         divorces = divorces?.map { it.asInternalModel() } ?: listOf(),
         lat = lat,
         lng = lng
-        )
+    )
 }

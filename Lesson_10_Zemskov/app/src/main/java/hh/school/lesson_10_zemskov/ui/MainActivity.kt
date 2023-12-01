@@ -1,9 +1,9 @@
 package hh.school.lesson_10_zemskov.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.SystemBarStyle
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -34,7 +34,8 @@ class MainActivity : AppCompatActivity() {
         binding.root.setOnApplyWindowInsetsListener { view, windowInsets ->
             val windowInsetsCompat = WindowInsetsCompat.toWindowInsetsCompat(windowInsets)
             view.updatePadding(
-                bottom = windowInsetsCompat.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom
+                bottom = windowInsetsCompat.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom,
+                right = windowInsetsCompat.getInsets(WindowInsetsCompat.Type.navigationBars()).right
             )
             windowInsets
         }

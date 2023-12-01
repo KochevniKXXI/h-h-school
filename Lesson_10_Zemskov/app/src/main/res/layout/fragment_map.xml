@@ -41,18 +41,19 @@
         android:contentDescription="@string/floating_action_button_my_location"
         android:src="@drawable/baseline_my_location_24"
         app:layout_anchor="@+id/standardBottomSheet"
-        app:layout_dodgeInsetEdges="bottom"
-        app:layout_anchorGravity="bottom|end" />
+        app:layout_anchorGravity="bottom|end"
+        app:layout_dodgeInsetEdges="bottom" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/standardBottomSheet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:behavior_hideable="true"
+        app:behavior_skipCollapsed="true"
         app:cardCornerRadius="0dp"
-        app:layout_insetEdge="bottom"
         app:cardElevation="@dimen/standard_bottom_sheet_elevation"
-        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+        app:layout_behavior="@string/bottom_sheet_behavior"
+        app:layout_insetEdge="bottom">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

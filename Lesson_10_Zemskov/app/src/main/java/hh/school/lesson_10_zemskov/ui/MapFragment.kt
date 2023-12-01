@@ -1,6 +1,10 @@
 package hh.school.lesson_10_zemskov.ui
 
 import android.annotation.SuppressLint
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.os.Looper
 import android.view.LayoutInflater
@@ -22,22 +26,27 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.card.MaterialCardView
 import com.yandex.mapkit.MapKitFactory
+import com.yandex.mapkit.ScreenPoint
+import com.yandex.mapkit.ScreenRect
+import com.yandex.mapkit.geometry.BoundingBox
+import com.yandex.mapkit.geometry.Geometry
 import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.map.CameraPosition
+import com.yandex.mapkit.map.ClusterListener
+import com.yandex.mapkit.map.ClusterTapListener
+import com.yandex.mapkit.map.ClusterizedPlacemarkCollection
 import com.yandex.mapkit.map.InputListener
 import com.yandex.mapkit.map.Map
 import com.yandex.mapkit.map.MapObjectTapListener
 import com.yandex.mapkit.map.PlacemarkMapObject
 import com.yandex.mapkit.mapview.MapView
 import com.yandex.runtime.image.ImageProvider
+import com.yandex.runtime.ui_view.ViewProvider
 import dagger.hilt.android.AndroidEntryPoint
 import hh.school.lesson_10_zemskov.R
 import hh.school.lesson_10_zemskov.databinding.FragmentMapBinding
 import hh.school.lesson_10_zemskov.model.Bridge
-import hh.school.lesson_10_zemskov.model.Divorce
-import hh.school.lesson_10_zemskov.utils.Time
 import kotlinx.coroutines.launch
-import java.util.Calendar
 
 @AndroidEntryPoint
 class MapFragment : Fragment() {
@@ -45,34 +54,49 @@ class MapFragment : Fragment() {
     private var _binding: FragmentMapBinding? = null
     private val binding get() = _binding!!
     private val viewModel: MapViewModel by viewModels()
-    private lateinit var mapView: MapView
     private lateinit var standardBottomSheetBehavior: BottomSheetBehavior<MaterialCardView>
-    private val imageProviderCurrentLocation by lazy {
-        ImageProvider.fromBitmap(
+    private lateinit var mapView: MapView
+    private lateinit var locationCallback: LocationCallback
+    private lateinit var clusterizedCollection: ClusterizedPlacemarkCollection
+
+    @SuppressLint("MissingPermission")
+    private val permissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { granted ->
+        val isGranted = granted.values.any()
+        if (isGranted) {
+            fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+                userPlacemark.geometry = Point(location.latitude, location.longitude)
+            }
+        }
+    }
+    private val userPlacemark by lazy {
+        val imageProvider = ImageProvider.fromBitmap(
             ResourcesCompat.getDrawable(
                 resources,
                 R.drawable.baseline_location_on_24,
                 activity?.theme
             )?.toBitmap()
         )
+        mapView.mapWindow.map.mapObjects.addPlacemark()
+            .apply { setIcon(imageProvider) }
     }
-    private lateinit var userPlacemark: PlacemarkMapObject
-    private lateinit var locationCallback: LocationCallback
+    private val bridgesPlacemarks = mutableListOf<PlacemarkMapObject>()
     private val fusedLocationClient by lazy {
         LocationServices.getFusedLocationProviderClient(
             requireContext()
         )
     }
     private val locationRequest = LocationRequest.Builder(10_000).build()
-
-    @Suppress("UNCHECKED_CAST")
     private val placemarkTapListener = MapObjectTapListener { mapObject, _ ->
+        (mapObject.userData as? Bridge)?.let { bridge ->
+            binding.imageViewBridgeState.setImageResource(bridge.state.imageResId)
+            binding.textViewName.text = bridge.name
+            binding.textViewDivorces.text = bridge.getDivorcesAsString()
+        }
         if (standardBottomSheetBehavior.state == BottomSheetBehavior.STATE_HIDDEN) {
             standardBottomSheetBehavior.state =
                 BottomSheetBehavior.STATE_EXPANDED
-        }
-        (mapObject.userData as? Pair<*, *>)?.let { (id, divorces) ->
-            viewModel.updateBridgeInfoById(id as Int, divorces as List<Divorce>)
         }
         true
     }
@@ -85,27 +109,66 @@ class MapFragment : Fragment() {
         }
 
         override fun onMapLongTap(p0: Map, p1: Point) {}
-
     }
-
-    @SuppressLint("MissingPermission")
-    private val permissionLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestMultiplePermissions()
-    ) { granted ->
-        val isGranted = granted.values.any()
-        if (isGranted) {
-            fusedLocationClient.lastLocation.addOnSuccessListener { location ->
-                userPlacemark = mapView.mapWindow.map.mapObjects.addPlacemark().apply {
-                    geometry = Point(location.latitude, location.longitude)
-                    setIcon(imageProviderCurrentLocation)
+    private val clusterTapListener = ClusterTapListener { selectedCluster ->
+        val listPoints = selectedCluster.placemarks
+        val topPadding = binding.appBarLayout.measuredHeight +
+                resources.getDimension(R.dimen.screen_padding)
+        val leftPadding = resources.getDimension(R.dimen.screen_padding)
+        val rightPadding = binding.floatingActionButtonToMyLocation.measuredWidth
+        val bottomPadding = binding.standardBottomSheet.measuredHeight +
+                binding.floatingActionButtonToMyLocation.measuredHeight
+        val cameraPosition = mapView.mapWindow.map.cameraPosition(
+            Geometry.fromBoundingBox(
+                BoundingBox(
+                    Point(
+                        listPoints.minOf { it.geometry.latitude },
+                        listPoints.minOf { it.geometry.longitude }
+                    ),
+                    Point(
+                        listPoints.maxOf { it.geometry.latitude },
+                        listPoints.maxOf { it.geometry.longitude }
+                    )
+                )
+            ),
+            ScreenRect(
+                ScreenPoint(leftPadding, topPadding),
+                ScreenPoint(
+                    mapView.mapWindow.width().toFloat() - rightPadding,
+                    mapView.mapWindow.height().toFloat() - bottomPadding
+                )
+            )
+        )
+        mapView.mapWindow.map.move(cameraPosition)
+        true
+    }
+    private val clusterListener = ClusterListener { cluster ->
+        cluster.addClusterTapListener(clusterTapListener)
+        cluster.appearance.setView(
+            ViewProvider(
+                BridgesClusterView(requireContext()).apply {
+                    setData(cluster.placemarks.mapNotNull { (it.userData as? Bridge)?.state })
                 }
-            }
-        }
+            )
+        )
     }
+    private val timeReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            bridgesPlacemarks.groupBy { (it.userData as? Bridge)?.state }
+                .forEach { (bridgeState, placemark) ->
+                    bridgeState?.let {
+                        val imageProvider = ImageProvider.fromBitmap(
+                            ResourcesCompat.getDrawable(
+                                resources,
+                                bridgeState.imageResId,
+                                requireContext().theme
+                            )?.toBitmap()
+                        )
+                        placemark.forEach { it.setIcon(imageProvider) }
+                    }
+                }
+        }
 
-    companion object {
-        @JvmStatic
-        fun newInstance() = MapFragment()
     }
 
     override fun onCreateView(
@@ -157,20 +220,10 @@ class MapFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.mapUiState.collect { uiState ->
                 when (uiState) {
-                    is UiState.Success -> onMapUiStateSuccess(uiState)
-                    is UiState.Loading -> onLoading()
-                    is UiState.Error -> onError(uiState)
-                    is UiState.Empty -> onEmpty()
-                }
-            }
-        }
-        lifecycleScope.launch {
-            viewModel.bridgeUiState.collect { uiState ->
-                when (uiState) {
-                    is UiState.Success -> onBridgeUiStateSuccess(uiState)
-                    is UiState.Loading -> { /* TODO */ }
-                    is UiState.Error -> { /* TODO */ }
-                    is UiState.Empty -> { /* TODO */ }
+                    is UiState.Success -> onUiStateSuccess(uiState.data)
+                    is UiState.Loading -> onUiStateLoading()
+                    is UiState.Error -> onUiStateError(uiState.error)
+                    is UiState.Empty -> onUiStateEmpty()
                 }
             }
         }
@@ -187,6 +240,7 @@ class MapFragment : Fragment() {
                 )
             }
         }
+        requireContext().registerReceiver(timeReceiver, IntentFilter(Intent.ACTION_TIME_TICK))
     }
 
     override fun onStart() {
@@ -211,44 +265,46 @@ class MapFragment : Fragment() {
         super.onStop()
     }
 
-    override fun onDestroy() {
+    override fun onDestroyView() {
+        clusterizedCollection.clear()
+        bridgesPlacemarks.clear()
+        requireContext().unregisterReceiver(timeReceiver)
         _binding = null
-        super.onDestroy()
+        super.onDestroyView()
     }
 
-    private fun onMapUiStateSuccess(uiState: UiState.Success<List<Bridge>>) = with(binding.layoutInfo) {
-        uiState.data.forEach { bridge ->
-            if (bridge.lat != null && bridge.lng != null) {
-                val imageResId = getBridgeImageResId(bridge.divorces)
+    private fun onUiStateSuccess(bridges: List<Bridge>) =
+        with(binding.layoutInfo) {
+            clusterizedCollection =
+                mapView.mapWindow.map.mapObjects.addClusterizedPlacemarkCollection(clusterListener)
+            bridges.groupBy { it.state }.forEach { (bridgeState, listBridges) ->
+                val placemarkSize = resources.getDimensionPixelSize(R.dimen.placemark_size)
                 val imageProvider = ImageProvider.fromBitmap(
                     ResourcesCompat.getDrawable(
                         resources,
-                        imageResId,
+                        bridgeState.imageResId,
                         activity?.theme
-                    )?.toBitmap()
+                    )?.toBitmap(placemarkSize, placemarkSize)
                 )
-                mapView.mapWindow.map.mapObjects.addPlacemark().apply {
-                    geometry = Point(bridge.lat, bridge.lng)
-                    setIcon(imageProvider)
-                    userData = bridge.id to bridge.divorces
-                    addTapListener(placemarkTapListener)
+                listBridges.forEach { bridge ->
+                    clusterizedCollection.addPlacemark().apply {
+                        if (bridge.lat != null && bridge.lng != null) {
+                            geometry = Point(bridge.lat, bridge.lng)
+                            setIcon(imageProvider)
+                            userData = bridge
+                            addTapListener(placemarkTapListener)
+                        }
+                    }
                 }
             }
+            clusterizedCollection.clusterPlacemarks(40.0, 15)
+            textViewInfo.isVisible = false
+            buttonRetry.isVisible = false
+            circularProgressIndicator.hide()
+            root.isVisible = false
         }
-        textViewInfo.isVisible = false
-        buttonRetry.isVisible = false
-        circularProgressIndicator.hide()
-        root.isVisible = false
-    }
 
-    private fun onBridgeUiStateSuccess(uiState: UiState.Success<Bridge>) {
-        val imageResId = getBridgeImageResId(uiState.data.divorces)
-        binding.imageViewBridgeState.setImageResource(imageResId)
-        binding.textViewName.text = uiState.data.name
-        binding.textViewDivorces.text = uiState.data.getDivorcesAsString()
-    }
-
-    private fun onEmpty() = with(binding.layoutInfo) {
+    private fun onUiStateEmpty() = with(binding.layoutInfo) {
         textViewInfo.text = getString(R.string.text_view_info_empty_list_bridges)
         buttonRetry.apply {
             text = getString(R.string.button_retry_text_search)
@@ -262,8 +318,8 @@ class MapFragment : Fragment() {
         circularProgressIndicator.hide()
     }
 
-    private fun onError(uiState: UiState.Error) = with(binding.layoutInfo) {
-        textViewInfo.text = uiState.error.message
+    private fun onUiStateError(error: Throwable) = with(binding.layoutInfo) {
+        textViewInfo.text = error.message
         buttonRetry.apply {
             text = getString(R.string.button_retry_text)
             setOnClickListener {
@@ -276,31 +332,11 @@ class MapFragment : Fragment() {
         circularProgressIndicator.hide()
     }
 
-    private fun onLoading() = with(binding.layoutInfo) {
+    private fun onUiStateLoading() = with(binding.layoutInfo) {
         root.isVisible = true
         circularProgressIndicator.show()
         textViewInfo.isVisible = false
         buttonRetry.isVisible = false
-    }
-
-    private fun getBridgeImageResId(divorces: List<Divorce>): Int {
-        val calendar = Calendar.getInstance()
-        val currentTime = Time(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE))
-        val divorcesAsTime = divorces.map {
-            try {
-                Time.parse(it.start)..Time.parse(it.end)
-            } catch (e: Exception) {
-                null
-            }
-        }
-        val imageResId = if (divorcesAsTime.any { it != null && currentTime in it }) {
-            R.drawable.ic_brige_late
-        } else if (divorcesAsTime.any { it != null && currentTime.until(it.start) <= Time(1, 0) }) {
-            R.drawable.ic_brige_soon
-        } else {
-            R.drawable.ic_brige_normal
-        }
-        return imageResId
     }
 
     @SuppressLint("MissingPermission")
@@ -314,5 +350,10 @@ class MapFragment : Fragment() {
 
     private fun stopLocationUpdates() {
         fusedLocationClient.removeLocationUpdates(locationCallback)
+    }
+
+    companion object {
+        @JvmStatic
+        fun newInstance() = MapFragment()
     }
 }

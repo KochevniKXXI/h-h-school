@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hh.school.lesson_10_zemskov.data.repository.BridgesRepository
 import hh.school.lesson_10_zemskov.model.Bridge
-import hh.school.lesson_10_zemskov.model.Divorce
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -18,9 +17,6 @@ class MapViewModel @Inject constructor(
     private val _mapUiState: MutableStateFlow<UiState<List<Bridge>>> =
         MutableStateFlow(UiState.Loading)
     val mapUiState: StateFlow<UiState<List<Bridge>>> get() = _mapUiState
-    private val _bridgeUiState: MutableStateFlow<UiState<Bridge>> =
-        MutableStateFlow(UiState.Loading)
-    val bridgeUiState: StateFlow<UiState<Bridge>> get() = _bridgeUiState
 
     init {
         updateMapUiState()
@@ -39,22 +35,6 @@ class MapViewModel @Inject constructor(
                 }
             }.onFailure { error ->
                 _mapUiState.value = UiState.Error(error)
-            }
-        }
-    }
-
-    fun updateBridgeInfoById(id: Int, divorces: List<Divorce>) {
-        viewModelScope.launch {
-            runCatching {
-                bridgesRepository.getBridgeInfoById(id)
-            }.onSuccess { bridge ->
-                _bridgeUiState.value = if (bridge.name.isBlank()) {
-                    UiState.Empty
-                } else {
-                    UiState.Success(bridge.copy(divorces = divorces))
-                }
-            }.onFailure { error ->
-                _bridgeUiState.value = UiState.Error(error)
             }
         }
     }
