@@ -17,9 +17,6 @@ class BarChartView : View {
 
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
         init(context, attrs)
-        data = List(9) {
-            "Дата" to it + 1
-        }
     }
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
@@ -28,9 +25,6 @@ class BarChartView : View {
         defStyleAttr
     ) {
         init(context, attrs)
-        data = List(9) {
-            "Дата" to it + 1
-        }
     }
 
     private val columnStartHeight by lazy { resources.getDimension(R.dimen.bar_chart_column_start_height) }
@@ -39,11 +33,15 @@ class BarChartView : View {
     private val columnMarginTop by lazy { resources.getDimension(R.dimen.bar_chart_column_top_margin) }
     private val columnMarginBottom by lazy { resources.getDimension(R.dimen.bar_chart_column_bottom_margin) }
     private val textSize by lazy { resources.getDimension(R.dimen.bar_chart_text_size) }
+    private var animatorSet: AnimatorSet? = null
 
     var data = emptyList<Pair<String, Int>>()
         set(value) {
             field = value.takeLast(9)
+            animatorSet?.cancel()
+            animatorSet = null
             columnsRectF = List(field.size) { RectF() }
+            setPositionsAndSize(width, height)
             invalidate()
         }
     private val xPositions = mutableListOf<Float>()
@@ -76,39 +74,31 @@ class BarChartView : View {
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-        val spaceEvenly = w / (data.size + 1).toFloat()
-        columnsRectF.forEachIndexed { index, rectF ->
-            val xPosition = spaceEvenly * (index + 1)
-            xPositions.add(xPosition)
-            rectF.set(
-                xPosition - columnWidth / 2,
-                h - paddingBottom - textSize - columnMarginBottom - columnStartHeight,
-                xPosition + columnWidth / 2,
-                h - paddingBottom - textSize - columnMarginBottom
-            )
-        }
+        setPositionsAndSize(w, h)
     }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        columnsRectF.forEach { rectF ->
-            canvas.drawRoundRect(rectF, columnCornerRadius, columnCornerRadius, columnPaint)
-        }
-        data.forEachIndexed { index, (_, amount) ->
-            canvas.drawText(
-                "$amount",
-                xPositions[index],
-                columnsRectF[index].top - columnMarginTop,
-                columnPaint
-            )
-        }
-        data.forEachIndexed { index, (date, _) ->
-            canvas.drawText(
-                date,
-                xPositions[index],
-                height - paddingBottom.toFloat(),
-                subtitleTextPaint
-            )
+        if (data.isNotEmpty()) {
+            columnsRectF.forEach { rectF ->
+                canvas.drawRoundRect(rectF, columnCornerRadius, columnCornerRadius, columnPaint)
+            }
+            data.forEachIndexed { index, (_, amount) ->
+                canvas.drawText(
+                    "$amount",
+                    xPositions[index],
+                    columnsRectF[index].top - columnMarginTop,
+                    columnPaint
+                )
+            }
+            data.forEachIndexed { index, (date, _) ->
+                canvas.drawText(
+                    date,
+                    xPositions[index],
+                    height - paddingBottom.toFloat(),
+                    subtitleTextPaint
+                )
+            }
         }
     }
 
@@ -134,10 +124,28 @@ class BarChartView : View {
                     }
                 }
             }
-            AnimatorSet().apply {
+            animatorSet = AnimatorSet().apply {
                 duration = 1_000
                 playTogether(animators)
-            }.start()
+            }
+            animatorSet?.start()
+        }
+    }
+
+    private fun setPositionsAndSize(w: Int, h: Int) {
+        if (data.isNotEmpty()) {
+            xPositions.clear()
+            val spaceEvenly = w / (data.size + 1).toFloat()
+            columnsRectF.forEachIndexed { index, rectF ->
+                val xPosition = spaceEvenly * (index + 1)
+                xPositions.add(xPosition)
+                rectF.set(
+                    xPosition - columnWidth / 2,
+                    h - paddingBottom - textSize - columnMarginBottom - columnStartHeight,
+                    xPosition + columnWidth / 2,
+                    h - paddingBottom - textSize - columnMarginBottom
+                )
+            }
         }
     }
 }

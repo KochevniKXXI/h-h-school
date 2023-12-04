@@ -2,7 +2,10 @@ package hh.school.lesson_11_zemskov
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import hh.school.lesson_11_zemskov.databinding.ActivityMainBinding
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -15,6 +18,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        lifecycleScope.launch {
+            delay(2_000)
+            binding.barChartView.data = generateDateInterval()
+            delay(2_000)
+            binding.barChartView.data = generateDateInterval()
+        }
+
+        binding.barChartView.setOnClickListener {
+            binding.barChartView.startAnimation()
+        }
+    }
+
+    private fun generateDateInterval(): List<Pair<String, Int>> {
         val dateFormatter = SimpleDateFormat("dd.MM", Locale.getDefault())
         val startDate = (Calendar.getInstance().apply {
             add(Calendar.DAY_OF_MONTH, -9)
@@ -30,15 +46,10 @@ class MainActivity : AppCompatActivity() {
                     clear(Calendar.MILLISECOND)
                 }
             }
-
-        binding.barChartView.data = generateSequence(startDate) { calendar ->
+        return generateSequence(startDate.clone() as Calendar) { calendar ->
             calendar.apply { add(Calendar.DAY_OF_MONTH, 1) }.takeIf { it <= Calendar.getInstance() }
         }.associate {
             dateFormatter.format(it.time) to (20..70).random()
         }.toList()
-
-        binding.barChartView.setOnClickListener {
-            binding.barChartView.startAnimation()
-        }
     }
 }
