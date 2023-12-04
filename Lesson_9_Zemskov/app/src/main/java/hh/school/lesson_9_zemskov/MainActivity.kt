@@ -81,10 +81,6 @@ class MainActivity : AppCompatActivity(), WeatherServiceCallbacks {
             IntentFilter(PROGRESS_RECEIVER_ACTION),
             ContextCompat.RECEIVER_NOT_EXPORTED
         )
-    }
-
-    override fun onStart() {
-        super.onStart()
         Intent(this, WeatherService::class.java).also { intent ->
             bindService(intent, connection, BIND_AUTO_CREATE)
         }
@@ -108,7 +104,7 @@ class MainActivity : AppCompatActivity(), WeatherServiceCallbacks {
             textViewWind.text = getString(R.string.wind, weather?.speedWind)
             textViewHumidity.text = getString(R.string.humidity, weather?.humidity)
             textViewPressure.text = getString(R.string.pressure, weather?.pressure)
-            thermometerView.mercuryLevel = weather?.temp?.toFloat() ?: 0f
+            thermometerView.temperature = weather?.temp?.toFloat() ?: 0f
         }
     }
 }

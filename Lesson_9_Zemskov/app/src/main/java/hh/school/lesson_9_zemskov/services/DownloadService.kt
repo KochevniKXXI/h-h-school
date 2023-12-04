@@ -24,7 +24,13 @@ import java.net.URL
 
 class DownloadService : Service() {
 
-    private val intentProgress by lazy { Intent(MainActivity.PROGRESS_RECEIVER_ACTION) }
+    private val intentProgress by lazy {
+        Intent(MainActivity.PROGRESS_RECEIVER_ACTION).apply {
+            setPackage(
+                this@DownloadService.packageName
+            )
+        }
+    }
 
     companion object {
         private const val CHANNEL_ID = "channel_id"
