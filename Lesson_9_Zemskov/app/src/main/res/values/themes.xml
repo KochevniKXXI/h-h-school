@@ -1,0 +1,7 @@
+<resources>
+    <style name="Base.Theme.Lesson_9_Zemskov" parent="Theme.Material3.Light.NoActionBar">
+
+    </style>
+
+    <style name="Theme.Lesson_9_Zemskov" parent="Base.Theme.Lesson_9_Zemskov" />
+</resources>

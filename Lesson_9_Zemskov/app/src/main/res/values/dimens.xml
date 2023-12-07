@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="screen_padding_horizontal">16dp</dimen>
+    <dimen name="screen_padding_vertical">8dp</dimen>
+    <dimen name="card_view_content_padding">16dp</dimen>
+    <dimen name="thermometer_view_scale_bar_padding_default">4dp</dimen>
+</resources>
