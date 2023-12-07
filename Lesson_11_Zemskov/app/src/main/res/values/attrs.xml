@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="BarChartView">
+        <attr name="subtitleTextColor" format="color|reference" />
+        <attr name="columnColor" format="color|reference" />
+    </declare-styleable>
+</resources>

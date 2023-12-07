@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <hh.school.lesson_11_zemskov.BarChartView
+        android:id="@+id/barChartView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black_grey_900"
+        android:paddingVertical="@dimen/bar_chart_view_padding_vertical"
+        app:subtitleTextColor="@color/blue_a700"
+        app:columnColor="@color/orange_a700" />
+</FrameLayout>
