@@ -1,0 +1,14 @@
+package hh.school.lesson_12_zemskov.di
+
+import dagger.Binds
+import dagger.Module
+import hh.school.lesson_12_zemskov.data.repository.BridgesRepository
+import hh.school.lesson_12_zemskov.data.repository.NetworkBridgesRepository
+import javax.inject.Singleton
+
+@Module
+interface RepositoryModule {
+    @Binds
+    @Singleton
+    fun bindBridgesRepository(networkBridgesRepository: NetworkBridgesRepository): BridgesRepository
+}

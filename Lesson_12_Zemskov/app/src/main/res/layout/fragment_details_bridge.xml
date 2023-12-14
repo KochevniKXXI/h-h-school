@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.details_bridge_fragment.DetailsBridgeFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stateListAnimator="@animator/bridge_app_bar_state_list_animator">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsingToolbarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:collapsedTitleTextAppearance="?textAppearanceHeadline6"
+            app:collapsedTitleTextColor="@color/white"
+            app:contentScrim="?colorPrimary"
+            app:expandedTitleTextColor="@color/transparent"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <ImageView
+                android:id="@+id/imageViewExpandedToolbarBackground"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/toolbar_expanded_height"
+                android:importantForAccessibility="no"
+                android:scaleType="centerCrop"
+                app:layout_collapseMode="parallax" />
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbarDetailsBridge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:elevation="0dp"
+                app:layout_collapseMode="pin"
+                app:navigationIcon="@drawable/ic_back" />
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?colorSurface"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <hh.school.lesson_12_zemskov.ui.views.BridgeShortInfoView
+                    android:id="@+id/bridgeShortInfoView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="0dp"
+                    app:cardElevation="0dp" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/textViewDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/description_bridge_margin_horizontal"
+                    android:layout_marginTop="@dimen/description_bridge_margin_top"
+                    android:layout_marginBottom="?actionBarSize"
+                    android:textAppearance="?textAppearanceBody2"
+                    android:textColor="@color/dull_grey_600"
+                    app:lineHeight="@dimen/bridge_description_text_line_height" />
+            </LinearLayout>
+
+            <hh.school.lesson_12_zemskov.ui.views.ScreenStateView
+                android:id="@+id/screenStateView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white" />
+        </FrameLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonReminder"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:layout_gravity="bottom"
+        android:insetBottom="0dp"
+        android:text="@string/bottom_app_bar_title"
+        app:cornerRadius="0dp"
+        app:icon="@drawable/ic_bell"
+        app:iconGravity="textStart"
+        app:iconPadding="@dimen/button_reminder_icon_padding" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="screen_padding">16dp</dimen>
+
+    <dimen name="view_bridge_short_info_image_margin">16dp</dimen>
+    <dimen name="view_bridge_short_info_headline_margin_top">16dp</dimen>
+    <dimen name="view_bridge_short_info_text_gone_margin_end">16dp</dimen>
+    <dimen name="view_bridge_short_info_icon_button_margin">4dp</dimen>
+
+    <dimen name="app_bar_expanded_elevation">8dp</dimen>
+    <dimen name="app_bar_collapsed_elevation">4dp</dimen>
+    <dimen name="toolbar_expanded_height">200dp</dimen>
+
+    <dimen name="description_bridge_margin_top">12dp</dimen>
+    <dimen name="description_bridge_margin_horizontal">16dp</dimen>
+
+    <dimen name="button_reminder_icon_padding">16dp</dimen>
+
+    <dimen name="floating_action_button_margin">16dp</dimen>
+    <dimen name="standard_bottom_sheet_elevation">4dp</dimen>
+
+    <dimen name="cluster_text_size">12sp</dimen>
+    <dimen name="cluster_drawable_padding">2dp</dimen>
+    <dimen name="placemark_size">24dp</dimen>
+    <dimen name="bridge_description_text_line_height">20dp</dimen>
+
+    <dimen name="layout_info_min_size">100dp</dimen>
+    <dimen name="layout_info_padding">16dp</dimen>
+</resources>
