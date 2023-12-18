@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="mapkit_api_key" tools:ignore="TypographyDashes">e5ce34f7-f439-4203-99a4-19f326a8f3f1</string>
+</resources>
