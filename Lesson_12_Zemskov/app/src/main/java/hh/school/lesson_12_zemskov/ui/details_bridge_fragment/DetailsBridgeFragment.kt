@@ -40,28 +40,43 @@ class DetailsBridgeFragment : BaseFragment(R.layout.fragment_details_bridge) {
     /**
      * Обрабатывет полученное [UiState].
      */
-    private fun updateUiState(uiState: UiState<Bridge>) {
+    private fun updateUiState(uiState: UiState<Bridge>) = with(binding) {
         when (uiState) {
             is UiState.Success -> {
-                binding.bridgeShortInfoView.bridge =
-                    uiState.data.copy(divorces = args.bridgeDivorces.toList())
-                binding.textViewDescription.text = uiState.data.description
-                binding.toolbarDetailsBridge.title = uiState.data.name
-                val imageUrl = when (uiState.data.state) {
+                val bridge = uiState.data
+                bridgeShortInfoView.bridge =
+                    bridge.copy(divorces = args.bridgeDivorces.toList())
+                textViewDescription.text = bridge.description
+                toolbarDetailsBridge.title = bridge.name
+                val imageUrl = when (bridge.state) {
                     BridgeState.NORMAL, BridgeState.SOON -> uiState.data.photoCloseUrl
                     BridgeState.LATE -> uiState.data.photoOpenUrl
                 }
                 glideRequestManager.load(imageUrl)
-                    .into(binding.imageViewExpandedToolbarBackground)
-                binding.screenStateView.setLoadingState(false)
+                    .into(imageViewExpandedToolbarBackground)
+                buttonReminder.isChecked = bridge.reminder != 0
+                buttonReminder.text = if (buttonReminder.isChecked) {
+                    getString(R.string.bottom_app_bar_is_remind_title, bridge.reminder)
+                } else {
+                    getString(R.string.bottom_app_bar_title)
+                }
+                buttonReminder.setOnClickListener {
+                    val action =
+                        DetailsBridgeFragmentDirections.actionDetailsBridgeFragmentToReminderDialogFragment(
+                            bridge.id,
+                            bridge.name
+                        )
+                    findNavController().navigate(action)
+                }
+                screenStateView.setLoadingState(false)
             }
 
             is UiState.Empty -> {
-                binding.screenStateView.setErrorState(getString(R.string.message_bridge_not_data))
+                screenStateView.setErrorState(getString(R.string.message_bridge_not_data))
             }
 
             is UiState.Error -> {
-                binding.screenStateView.setErrorState(
+                screenStateView.setErrorState(
                     uiState.error.message,
                     getString(R.string.request_try_again)
                 ) {
@@ -70,7 +85,7 @@ class DetailsBridgeFragment : BaseFragment(R.layout.fragment_details_bridge) {
             }
 
             is UiState.Loading -> {
-                binding.screenStateView.setLoadingState(true)
+                screenStateView.setLoadingState(true)
             }
         }
     }

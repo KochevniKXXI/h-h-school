@@ -12,6 +12,7 @@ import hh.school.lesson_12_zemskov.databinding.FragmentListBridgesBinding
 import hh.school.lesson_12_zemskov.ui.BaseFragment
 import hh.school.lesson_12_zemskov.ui.UiState
 import hh.school.lesson_12_zemskov.ui.model.Bridge
+import hh.school.lesson_12_zemskov.ui.model.Divorce
 import hh.school.lesson_12_zemskov.ui.views.BridgeShortInfoView
 
 class ListBridgesFragment : BaseFragment(R.layout.fragment_list_bridges) {
@@ -80,13 +81,24 @@ class ListBridgesFragment : BaseFragment(R.layout.fragment_list_bridges) {
      */
     private fun initUi() {
         binding.recyclerViewBridges.adapter = bridgesAdapter.apply {
-            onItemClick = { bridgeId, bridgeDivorces ->
-                val action = ListBridgesFragmentDirections
-                    .actionListBridgesFragmentToDetailsBridgeFragment(
-                        bridgeId,
-                        bridgeDivorces.toTypedArray()
-                    )
-                findNavController().navigate(action)
+            clickListener = object : OnBridgeClickListener {
+                override fun onItemClick(id: Int, divorces: List<Divorce>) {
+                    val action = ListBridgesFragmentDirections
+                        .actionListBridgesFragmentToDetailsBridgeFragment(
+                            id,
+                            divorces.toTypedArray()
+                        )
+                    findNavController().navigate(action)
+                }
+
+                override fun onReminderClick(id: Int, name: String) {
+                    val action =
+                        ListBridgesFragmentDirections.actionListBridgesFragmentToReminderDialogFragment(
+                            id,
+                            name
+                        )
+                    findNavController().navigate(action)
+                }
             }
         }
         binding.toolbarListBridges.setOnMenuItemClickListener { menuItem ->

@@ -50,9 +50,14 @@ class BridgeShortInfoView : MaterialCardView {
         imageViewBridgeState.setImageResource(bridge.state.imageResId)
         textViewName.text = bridge.name
         textViewDivorces.text = bridge.getDivorcesAsString()
+        iconButtonReminder.isChecked = bridge.reminder != 0
     }
 
     fun updateIconBridgeState() {
         binding.imageViewBridgeState.setImageResource(bridge.state.imageResId)
+    }
+
+    fun setOnReminderClickListener(l: OnClickListener) {
+        binding.iconButtonReminder.setOnClickListener(l)
     }
 }

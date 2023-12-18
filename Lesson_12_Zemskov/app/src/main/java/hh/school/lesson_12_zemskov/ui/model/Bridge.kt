@@ -11,7 +11,8 @@ data class Bridge(
     val lat: Double? = null,
     val lng: Double? = null,
     val photoCloseUrl: String = "",
-    val photoOpenUrl: String = ""
+    val photoOpenUrl: String = "",
+    val reminder: Int = 0
 ) {
     val state: BridgeState get() = calculateState()
 

@@ -5,6 +5,7 @@ import dagger.android.ContributesAndroidInjector
 import hh.school.lesson_12_zemskov.ui.details_bridge_fragment.DetailsBridgeFragment
 import hh.school.lesson_12_zemskov.ui.list_bridges_fragment.ListBridgesFragment
 import hh.school.lesson_12_zemskov.ui.map_fragment.MapFragment
+import hh.school.lesson_12_zemskov.ui.reminder_dialog_fragment.ReminderDialogFragment
 
 @Module
 interface FragmentModule {
@@ -17,4 +18,7 @@ interface FragmentModule {
 
     @ContributesAndroidInjector
     fun mapFragment(): MapFragment
+
+    @ContributesAndroidInjector
+    fun reminderDialogFragment(): ReminderDialogFragment
 }

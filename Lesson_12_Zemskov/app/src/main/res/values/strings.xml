@@ -4,6 +4,7 @@
     <string name="menu_list_bridges_actions_item_info_title">Информация</string>
     <string name="menu_list_bridges_actions_item_map_title">На карте</string>
     <string name="bottom_app_bar_title">Напомнить</string>
+    <string name="bottom_app_bar_is_remind_title">За %d минут</string>
     <string name="fragment_list_bridges_label">Список мостов</string>
     <string name="fragment_details_bridge_label">Детали моста</string>
     <string name="fragment_map_label">Мосты на карте</string>
@@ -12,4 +13,10 @@
     <string name="message_list_bridges_empty">Список мостов пуст</string>
     <string name="request_try_again">Повторить попытку</string>
     <string name="message_bridge_not_data">Нет данных о мосте</string>
+    <string name="reminder_dialog_fragment_message">За сколько до закрытия моста вас предупредить?</string>
+    <string name="positive_button_text">OK</string>
+    <string name="negative_button_text">Отменить</string>
+    <string name="reminder_dialog_fragment_title">%s мост</string>
+    <string name="reminder_picker_value_off">Выкл</string>
+    <string name="reminder_picker_value_on">%d мин</string>
 </resources>

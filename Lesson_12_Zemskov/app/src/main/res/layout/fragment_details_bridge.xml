@@ -88,10 +88,13 @@
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:layout_gravity="bottom"
+        android:checkable="true"
         android:insetBottom="0dp"
         android:text="@string/bottom_app_bar_title"
+        android:backgroundTint="@drawable/sl_toggle_button_background_tint"
         app:cornerRadius="0dp"
         app:icon="@drawable/ic_bell"
         app:iconGravity="textStart"
-        app:iconPadding="@dimen/button_reminder_icon_padding" />
+        app:iconPadding="@dimen/button_reminder_icon_padding"
+        app:toggleCheckedStateOnClick="false" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

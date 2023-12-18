@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_listBridgesFragment_to_mapFragment"
             app:destination="@id/mapFragment" />
+        <action
+            android:id="@+id/action_listBridgesFragment_to_reminderDialogFragment"
+            app:destination="@id/reminderDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailsBridgeFragment"
@@ -28,6 +31,9 @@
         <argument
             android:name="bridgeDivorces"
             app:argType="hh.school.lesson_12_zemskov.ui.model.Divorce[]" />
+        <action
+            android:id="@+id/action_detailsBridgeFragment_to_reminderDialogFragment"
+            app:destination="@id/reminderDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/mapFragment"
@@ -40,4 +46,15 @@
             app:popUpTo="@id/listBridgesFragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <dialog
+        android:id="@+id/reminderDialogFragment"
+        android:name="hh.school.lesson_12_zemskov.ui.reminder_dialog_fragment.ReminderDialogFragment"
+        android:label="ReminderDialogFragment" >
+        <argument
+            android:name="bridgeId"
+            app:argType="integer" />
+        <argument
+            android:name="bridgeName"
+            app:argType="string" />
+    </dialog>
 </navigation>
