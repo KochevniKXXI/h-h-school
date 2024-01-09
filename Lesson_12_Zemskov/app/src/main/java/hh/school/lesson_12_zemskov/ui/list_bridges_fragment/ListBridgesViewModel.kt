@@ -36,7 +36,7 @@ class ListBridgesViewModel @Inject constructor(
                             )
                         )
                     )
-                    reminderRepository.reminders.observeForever {
+                    reminderRepository.reminders.collect {
                         _uiState.postValue(
                             UiState.Success(
                                 reminderRepository.getBridgesWithReminders(

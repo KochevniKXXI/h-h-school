@@ -31,7 +31,6 @@ import com.yandex.mapkit.map.InputListener
 import com.yandex.mapkit.map.Map
 import com.yandex.mapkit.map.MapObjectTapListener
 import com.yandex.mapkit.map.PlacemarkMapObject
-import com.yandex.mapkit.mapview.MapView
 import com.yandex.runtime.image.ImageProvider
 import com.yandex.runtime.ui_view.ViewProvider
 import hh.school.lesson_12_zemskov.R
@@ -39,17 +38,15 @@ import hh.school.lesson_12_zemskov.databinding.FragmentMapBinding
 import hh.school.lesson_12_zemskov.ui.BaseFragment
 import hh.school.lesson_12_zemskov.ui.UiState
 import hh.school.lesson_12_zemskov.ui.model.Bridge
-import hh.school.lesson_12_zemskov.ui.views.BridgeShortInfoView
 import hh.school.lesson_12_zemskov.ui.views.BridgesClusterView
 
 class MapFragment : BaseFragment(R.layout.fragment_map) {
 
     private val binding by viewBinding(FragmentMapBinding::bind)
     private val viewModel: MapViewModel by daggerViewModels()
-    private lateinit var standardBottomSheetBehavior: BottomSheetBehavior<BridgeShortInfoView>
-    private lateinit var mapView: MapView
     private lateinit var locationCallback: LocationCallback
-    private lateinit var clusterizedCollection: ClusterizedPlacemarkCollection
+    private var userPlacemark: PlacemarkMapObject? = null
+    private var clusterizedCollection: ClusterizedPlacemarkCollection? = null
 
     @SuppressLint("MissingPermission")
     private val permissionLauncher = registerForActivityResult(
@@ -58,20 +55,9 @@ class MapFragment : BaseFragment(R.layout.fragment_map) {
         val isGranted = granted.values.any()
         if (isGranted) {
             fusedLocationClient.lastLocation.addOnSuccessListener { location ->
-                userPlacemark.geometry = Point(location.latitude, location.longitude)
+                userPlacemark?.geometry = Point(location.latitude, location.longitude)
             }
         }
-    }
-    private val userPlacemark by lazy {
-        val imageProvider = ImageProvider.fromBitmap(
-            ResourcesCompat.getDrawable(
-                resources,
-                R.drawable.ic_location_on,
-                activity?.theme
-            )?.toBitmap()
-        )
-        mapView.mapWindow.map.mapObjects.addPlacemark()
-            .apply { setIcon(imageProvider) }
     }
     private val bridgesPlacemarks = mutableListOf<PlacemarkMapObject>()
     private val fusedLocationClient by lazy {
@@ -84,16 +70,16 @@ class MapFragment : BaseFragment(R.layout.fragment_map) {
         (mapObject.userData as? Bridge)?.let { bridge ->
             binding.standardBottomSheet.bridge = bridge
         }
-        if (standardBottomSheetBehavior.state == BottomSheetBehavior.STATE_HIDDEN) {
-            standardBottomSheetBehavior.state =
+        if (BottomSheetBehavior.from(binding.standardBottomSheet).state == BottomSheetBehavior.STATE_HIDDEN) {
+            BottomSheetBehavior.from(binding.standardBottomSheet).state =
                 BottomSheetBehavior.STATE_EXPANDED
         }
         true
     }
     private val mapInputListener = object : InputListener {
         override fun onMapTap(p0: Map, p1: Point) {
-            if (standardBottomSheetBehavior.state != BottomSheetBehavior.STATE_HIDDEN) {
-                standardBottomSheetBehavior.state =
+            if (BottomSheetBehavior.from(binding.standardBottomSheet).state != BottomSheetBehavior.STATE_HIDDEN) {
+                BottomSheetBehavior.from(binding.standardBottomSheet).state =
                     BottomSheetBehavior.STATE_HIDDEN
             }
         }
@@ -109,7 +95,7 @@ class MapFragment : BaseFragment(R.layout.fragment_map) {
         val rightPadding = binding.floatingActionButtonToMyLocation.measuredWidth
         val bottomPadding = binding.standardBottomSheet.measuredHeight +
                 binding.floatingActionButtonToMyLocation.measuredHeight
-        val cameraPosition = mapView.mapWindow.map.cameraPosition(
+        val cameraPosition = binding.mapView.mapWindow.map.cameraPosition(
             Geometry.fromBoundingBox(
                 BoundingBox(
                     Point(
@@ -125,12 +111,12 @@ class MapFragment : BaseFragment(R.layout.fragment_map) {
             ScreenRect(
                 ScreenPoint(leftPadding, topPadding),
                 ScreenPoint(
-                    mapView.mapWindow.width().toFloat() - rightPadding,
-                    mapView.mapWindow.height().toFloat() - bottomPadding
+                    binding.mapView.mapWindow.width().toFloat() - rightPadding,
+                    binding.mapView.mapWindow.height().toFloat() - bottomPadding
                 )
             )
         )
-        mapView.mapWindow.map.move(cameraPosition)
+        binding.mapView.mapWindow.map.move(cameraPosition)
         true
     }
     private val clusterListener = ClusterListener { cluster ->
@@ -157,8 +143,7 @@ class MapFragment : BaseFragment(R.layout.fragment_map) {
     @SuppressLint("MissingPermission")
     private fun initUi() {
         MapKitFactory.initialize(requireContext())
-        mapView = binding.mapView
-        standardBottomSheetBehavior = BottomSheetBehavior.from(binding.standardBottomSheet).apply {
+        BottomSheetBehavior.from(binding.standardBottomSheet).apply {
             state = BottomSheetBehavior.STATE_HIDDEN
         }
         binding.toolbar.setOnMenuItemClickListener { menuItem ->
@@ -170,6 +155,16 @@ class MapFragment : BaseFragment(R.layout.fragment_map) {
             }
             true
         }
+        with(binding.standardBottomSheet) {
+            setOnClickListener {
+                val action = MapFragmentDirections
+                    .actionMapFragmentToDetailsBridgeFragment(
+                        bridge.id,
+                        bridge.divorces.toTypedArray()
+                    )
+                findNavController().navigate(action)
+            }
+        }
         permissionLauncher.launch(
             arrayOf(
                 Manifest.permission.ACCESS_COARSE_LOCATION,
@@ -179,11 +174,24 @@ class MapFragment : BaseFragment(R.layout.fragment_map) {
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
                 for (location in locationResult.locations) {
-                    userPlacemark.geometry = Point(location.latitude, location.longitude)
+                    userPlacemark?.geometry = Point(location.latitude, location.longitude)
                 }
             }
         }
-        mapView.mapWindow.map.move(
+
+        userPlacemark = binding.mapView.mapWindow.map.mapObjects.addPlacemark()
+            .apply {
+                val imageProvider = ImageProvider.fromBitmap(
+                    ResourcesCompat.getDrawable(
+                        resources,
+                        R.drawable.ic_location_on,
+                        activity?.theme
+                    )?.toBitmap()
+                )
+                setIcon(imageProvider)
+            }
+
+        binding.mapView.mapWindow.map.move(
             CameraPosition(
                 Point(59.938784, 30.314997),
                 12.5f,
@@ -193,12 +201,12 @@ class MapFragment : BaseFragment(R.layout.fragment_map) {
         )
         binding.mapView.mapWindow.map.addInputListener(mapInputListener)
         clusterizedCollection =
-            mapView.mapWindow.map.mapObjects.addClusterizedPlacemarkCollection(
+            binding.mapView.mapWindow.map.mapObjects.addClusterizedPlacemarkCollection(
                 clusterListener
             )
         binding.floatingActionButtonToMyLocation.setOnClickListener {
             fusedLocationClient.lastLocation.addOnSuccessListener { location ->
-                mapView.mapWindow.map.move(
+                binding.mapView.mapWindow.map.move(
                     CameraPosition(
                         Point(location.latitude, location.longitude),
                         12.5f,
@@ -239,7 +247,7 @@ class MapFragment : BaseFragment(R.layout.fragment_map) {
                         )?.toBitmap(placemarkSize, placemarkSize)
                     )
                     listBridges.forEach { bridge ->
-                        clusterizedCollection.addPlacemark().apply {
+                        clusterizedCollection?.addPlacemark()?.apply {
                             if (bridge.lat != null && bridge.lng != null) {
                                 geometry = Point(bridge.lat, bridge.lng)
                                 setIcon(imageProvider)
@@ -250,7 +258,7 @@ class MapFragment : BaseFragment(R.layout.fragment_map) {
                         }
                     }
                 }
-                clusterizedCollection.clusterPlacemarks(40.0, 15)
+                clusterizedCollection?.clusterPlacemarks(40.0, 15)
                 binding.screenStateView.setLoadingState(false)
             }
 
@@ -276,7 +284,7 @@ class MapFragment : BaseFragment(R.layout.fragment_map) {
     override fun onStart() {
         super.onStart()
         MapKitFactory.getInstance().onStart()
-        mapView.onStart()
+        binding.mapView.onStart()
     }
 
     override fun onResume() {
@@ -290,13 +298,13 @@ class MapFragment : BaseFragment(R.layout.fragment_map) {
     }
 
     override fun onStop() {
-        mapView.onStop()
+        binding.mapView.onStop()
         MapKitFactory.getInstance().onStop()
         super.onStop()
     }
 
     override fun onDestroyView() {
-        clusterizedCollection.clear()
+        clusterizedCollection?.clear()
         bridgesPlacemarks.clear()
         super.onDestroyView()
     }
@@ -316,7 +324,7 @@ class MapFragment : BaseFragment(R.layout.fragment_map) {
                     placemarks.forEach { it.setIcon(imageProvider) }
                 }
             }
-        clusterizedCollection.clear()
+        clusterizedCollection?.clear()
         bridgesPlacemarks.clear()
         updateUiState(checkNotNull(viewModel.uiState.value))
     }

@@ -26,7 +26,7 @@ class DetailsBridgeViewModel @Inject constructor(
             }.onSuccess { bridge ->
                 if (bridge.name.isNotBlank()) {
                     _uiState.postValue(UiState.Success(bridge.copy(reminder = reminderRepository.getReminderById(bridge.id))))
-                    reminderRepository.reminders.observeForever { (bridgeId, reminder) ->
+                    reminderRepository.reminders.collect { (bridgeId, reminder) ->
                         if (id == bridgeId.toInt()) _uiState.postValue(UiState.Success(bridge.copy(reminder = reminder)))
                     }
                 } else {
