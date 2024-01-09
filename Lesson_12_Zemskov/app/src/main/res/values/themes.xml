@@ -1,0 +1,32 @@
+<resources>
+
+    <style name="Base.Theme.Lesson_12_Zemskov" parent="Theme.MaterialComponents.Light.NoActionBar">\
+        <item name="colorPrimary">@color/caribbean_green_300</item>
+        <item name="android:statusBarColor">@color/black_alpha_8</item>
+        <item name="android:textColorPrimary">@color/black_alpha_87</item>
+        <item name="android:ambientShadowAlpha">0.24</item>
+        <item name="android:spotShadowAlpha">0.48</item>
+        <item name="colorControlNormal">?attr/colorPrimary</item>
+
+        <item name="toolbarStyle">@style/Widget.MaterialComponents.Toolbar.Primary</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.MaterialComponents.Dialog.Alert</item>
+        <item name="materialIconButtonStyle">@style/BridgesApp.Widget.Material3.Button.IconButton.Primary</item>
+    </style>
+
+    <style name="Theme.Lesson_12_Zemskov" parent="Base.Theme.Lesson_12_Zemskov" />
+
+    <style name="BridgesApp.ThemeOverlay.MaterialComponents.Dialog.Alert" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="materialAlertDialogTitleTextStyle">@style/TextAppearance.MaterialComponents.Headline6</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/BridgesApp.TextAppearance.MaterialComponents.Subtitle1</item>
+    </style>
+
+    <style name="BridgesApp.TextAppearance.MaterialComponents.Subtitle1" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textColor">@color/dull_grey_600</item>
+    </style>
+
+    <style name="BridgesApp.Widget.Material3.Button.IconButton.Primary" parent="Widget.Material3.Button.IconButton">
+        <item name="iconTint">@drawable/sl_icon_button_icon_color</item>
+        <item name="backgroundTint">@color/transparent</item>
+        <item name="rippleColor">@drawable/sl_icon_button_ripple_color</item>
+    </style>
+</resources>

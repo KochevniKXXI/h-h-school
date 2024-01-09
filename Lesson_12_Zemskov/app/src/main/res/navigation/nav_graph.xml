@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/listBridgesFragment">
+
+    <fragment
+        android:id="@+id/listBridgesFragment"
+        android:name="hh.school.lesson_12_zemskov.ui.list_bridges_fragment.ListBridgesFragment"
+        android:label="@string/fragment_list_bridges_label"
+        tools:layout="@layout/fragment_list_bridges">
+        <action
+            android:id="@+id/action_listBridgesFragment_to_detailsBridgeFragment"
+            app:destination="@id/detailsBridgeFragment" />
+        <action
+            android:id="@+id/action_listBridgesFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
+        <action
+            android:id="@+id/action_listBridgesFragment_to_reminderDialogFragment"
+            app:destination="@id/reminderDialogFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsBridgeFragment"
+        android:name="hh.school.lesson_12_zemskov.ui.details_bridge_fragment.DetailsBridgeFragment"
+        android:label="@string/fragment_details_bridge_label"
+        tools:layout="@layout/fragment_details_bridge" >
+        <argument
+            android:name="bridgeId"
+            app:argType="integer" />
+        <argument
+            android:name="bridgeDivorces"
+            app:argType="hh.school.lesson_12_zemskov.ui.model.Divorce[]" />
+        <action
+            android:id="@+id/action_detailsBridgeFragment_to_reminderDialogFragment"
+            app:destination="@id/reminderDialogFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="hh.school.lesson_12_zemskov.ui.map_fragment.MapFragment"
+        android:label="@string/fragment_map_label"
+        tools:layout="@layout/fragment_map" >
+        <action
+            android:id="@+id/action_mapFragment_to_listBridgesFragment"
+            app:destination="@id/listBridgesFragment"
+            app:popUpTo="@id/listBridgesFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_mapFragment_to_detailsBridgeFragment"
+            app:destination="@id/detailsBridgeFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/reminderDialogFragment"
+        android:name="hh.school.lesson_12_zemskov.ui.reminder_dialog_fragment.ReminderDialogFragment"
+        android:label="ReminderDialogFragment" >
+        <argument
+            android:name="bridgeId"
+            app:argType="integer" />
+        <argument
+            android:name="bridgeName"
+            app:argType="string" />
+    </dialog>
+</navigation>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/itemInfo"
+        android:icon="@drawable/ic_info"
+        android:title="@string/menu_list_bridges_actions_item_info_title"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/itemMap"
+        android:icon="@drawable/ic_map"
+        android:title="@string/menu_list_bridges_actions_item_map_title"
+        app:showAsAction="ifRoom" />
+</menu>
